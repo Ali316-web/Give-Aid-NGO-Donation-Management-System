@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home · GIVE-AID</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../../assets/css/design-system.css">
+<link rel="stylesheet" href="../../assets/css/public.css">
+
+</head>
+<body>
+<!-- Views/Shared/_Navbar.cshtml -->
+<header class="site-header">
+  <div class="container bar">
+    <a href="index.html" class="brand"><svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="20" cy="20" r="20" fill="#1F5D50"/>
+<path d="M20 8c-1 3-3 4-3 7 0 2 1 3 3 3s3-1 3-3c0-3-2-4-3-7Z" fill="#F0A93C"/>
+<path d="M20 17v8M14 30c0-4 2-6 6-6s6 2 6 6M11 30h18M13 26c1-3 3-4 7-4M27 26c-1-3-3-4-7-4" stroke="#F0A93C" stroke-width="1.6" stroke-linecap="round"/>
+</svg><span>GIVE-AID</span></a>
+    <nav class="main-nav">
+      <ul><li><a href="index.html" class=" active">Home</a></li>
+<li><a href="donate.html" class="">Donate</a></li>
+<li><a href="programmes.html" class="">Programmes</a></li>
+<li><a href="help-centre.html" class="">Help Centre</a></li>
+<li><a href="about.html" class="">About Us</a></li>
+<li><a href="partners.html" class="">Our Partners</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+      <a href="register.html" class="btn btn-outline btn-sm">Register</a>
+      <a href="donate.html" class="btn btn-accent btn-sm"><i class="fa-solid fa-heart"></i> Donate Now</a>
+    </div>
+    <button class="nav-toggle" data-nav-toggle aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+  </div>
+  <div class="mobile-nav" data-mobile-nav>
+    <ul><li><a href="index.html" class=" active">Home</a></li>
+<li><a href="donate.html" class="">Donate</a></li>
+<li><a href="programmes.html" class="">Programmes</a></li>
+<li><a href="help-centre.html" class="">Help Centre</a></li>
+<li><a href="about.html" class="">About Us</a></li>
+<li><a href="partners.html" class="">Our Partners</a></li>
+      <li><a href="ngos.html">Associated NGOs</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="dashboard.html">My Account</a></li>
+    </ul>
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-outline btn-block">Log In</a>
+      <a href="register.html" class="btn btn-primary btn-block">Register</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <svg class="rings-bg" width="520" height="520" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="260" cy="260" r="240" stroke="#F0A93C" stroke-width="1"/>
+<circle cx="260" cy="260" r="190" stroke="#F0A93C" stroke-width="1"/>
+<circle cx="260" cy="260" r="140" stroke="#F0A93C" stroke-width="1"/>
+<circle cx="260" cy="260" r="90" stroke="#F0A93C" stroke-width="1"/>
+</svg>
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">Rooted in community</span>
+      <h1>Every gift takes root and grows into shelter for someone else.</h1>
+      <p class="lead">GIVE-AID connects donors with a network of associated NGOs working across children's welfare, education, healthcare and more — so your support reaches exactly where it's needed.</p>
+      <div class="hero-actions">
+        <a href="donate.html" class="btn btn-accent"><i class="fa-solid fa-heart"></i> Donate Now</a>
+        <a href="programmes.html" class="btn btn-outline-light">Explore Programmes</a>
+      </div>
+      <div class="flex gap-4" style="margin-top:36px;">
+        <div><strong style="color:#fff;font-family:var(--font-display);font-size:22px;">128</strong><div style="font-size:12.5px;color:rgba(255,255,255,.65);">Associated NGOs</div></div>
+        <div><strong style="color:#fff;font-family:var(--font-display);font-size:22px;">42,600+</strong><div style="font-size:12.5px;color:rgba(255,255,255,.65);">People helped</div></div>
+        <div><strong style="color:#fff;font-family:var(--font-display);font-size:22px;">Rs 86M</strong><div style="font-size:12.5px;color:rgba(255,255,255,.65);">Raised to date</div></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=900&q=80" alt="Volunteers distributing aid supplies to a community">
+      <div class="float-stat"><i class="fa-solid fa-circle-check" style="color:var(--banyan-700)"></i> 96% of donations reach programmes directly</div>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="section-head">
+    <div>
+      <span class="eyebrow">Where your gift goes</span>
+      <h2>Choose a cause close to your heart</h2>
+      <p>Every cause is run through a vetted associated NGO with transparent, trackable spending.</p>
+    </div>
+    <a href="donate.html" class="btn btn-outline">View all causes</a>
+  </div>
+  <div class="grid causes-grid">
+    
+    <div class="card card-hover cause-card">
+      <div class="cause-icon"><i class="fa-solid fa-child-reaching"></i></div>
+      <h3>Children Welfare</h3>
+      <p>Nutrition, shelter and schooling for at-risk children.</p>
+      <div class="cause-meta"><span>Rs 2.4M</span><span>of Rs 4M</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:60%"></div></div>
+      <a href="donate.html" class="btn btn-primary btn-sm btn-block">Donate to this cause</a>
+    </div>
+    <div class="card card-hover cause-card">
+      <div class="cause-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      <h3>Education</h3>
+      <p>Scholarships and school supplies for underserved students.</p>
+      <div class="cause-meta"><span>Rs 1.8M</span><span>of Rs 3M</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:60%"></div></div>
+      <a href="donate.html" class="btn btn-primary btn-sm btn-block">Donate to this cause</a>
+    </div>
+    <div class="card card-hover cause-card">
+      <div class="cause-icon"><i class="fa-solid fa-wheelchair-move"></i></div>
+      <h3>Disabled Persons</h3>
+      <p>Mobility aids, therapy and inclusive skill training.</p>
+      <div class="cause-meta"><span>Rs 980K</span><span>of Rs 2M</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:49%"></div></div>
+      <a href="donate.html" class="btn btn-primary btn-sm btn-block">Donate to this cause</a>
+    </div>
+    <div class="card card-hover cause-card">
+      <div class="cause-icon"><i class="fa-solid fa-person-dress"></i></div>
+      <h3>Women Welfare</h3>
+      <p>Vocational training and safe shelters for women.</p>
+      <div class="cause-meta"><span>Rs 1.2M</span><span>of Rs 2.5M</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:48%"></div></div>
+      <a href="donate.html" class="btn btn-primary btn-sm btn-block">Donate to this cause</a>
+    </div>
+    <div class="card card-hover cause-card">
+      <div class="cause-icon"><i class="fa-solid fa-person-running"></i></div>
+      <h3>Youth Welfare</h3>
+      <p>Mentorship and sports programmes for young people.</p>
+      <div class="cause-meta"><span>Rs 760K</span><span>of Rs 1.5M</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:51%"></div></div>
+      <a href="donate.html" class="btn btn-primary btn-sm btn-block">Donate to this cause</a>
+    </div>
+    <div class="card card-hover cause-card">
+      <div class="cause-icon"><i class="fa-solid fa-person-cane"></i></div>
+      <h3>Elderly Welfare</h3>
+      <p>Home visits, medicine and companionship for seniors.</p>
+      <div class="cause-meta"><span>Rs 640K</span><span>of Rs 1.2M</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:53%"></div></div>
+      <a href="donate.html" class="btn btn-primary btn-sm btn-block">Donate to this cause</a>
+    </div>
+    <div class="card card-hover cause-card">
+      <div class="cause-icon"><i class="fa-solid fa-kit-medical"></i></div>
+      <h3>Healthcare</h3>
+      <p>Free clinics and emergency medical response.</p>
+      <div class="cause-meta"><span>Rs 3.1M</span><span>of Rs 5M</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:62%"></div></div>
+      <a href="donate.html" class="btn btn-primary btn-sm btn-block">Donate to this cause</a>
+    </div>
+    <div class="card card-hover cause-card">
+      <div class="cause-icon"><i class="fa-solid fa-house-chimney-crack"></i></div>
+      <h3>Emergency Relief</h3>
+      <p>Rapid response for floods, fires and displacement.</p>
+      <div class="cause-meta"><span>Rs 1.5M</span><span>of Rs 3M</span></div>
+      <div class="progress-track"><div class="progress-fill" style="width:50%"></div></div>
+      <a href="donate.html" class="btn btn-primary btn-sm btn-block">Donate to this cause</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background:var(--banyan-50);">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <span class="eyebrow">Get involved</span>
+        <h2>Upcoming &amp; recent programmes</h2>
+        <p>Join a programme near you, or follow along with what associated NGOs are running this month.</p>
+      </div>
+      <a href="programmes.html" class="btn btn-outline">View all programmes</a>
+    </div>
+    <div class="grid programmes-grid">
+      
+      <div class="card card-hover programme-card">
+        <div class="thumb"><span class="cat-tag">Healthcare</span><img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=700&q=80" alt="Free Medical Camp"></div>
+        <div class="body">
+          <div class="meta-line"><span><i class="fa-regular fa-calendar"></i> Aug 22, 2026</span><span><i class="fa-solid fa-location-dot"></i> Lyari, Karachi</span></div>
+          <h3>Free Medical Camp</h3>
+          <p>A full-day clinic offering checkups, medicines and referrals for the local community.</p>
+          <div class="card-actions">
+            <a href="programme-details.html" class="btn btn-outline btn-sm">View Details</a>
+            <a href="programme-details.html" class="btn btn-primary btn-sm">I'm Interested</a>
+          </div>
+        </div>
+      </div>
+      <div class="card card-hover programme-card">
+        <div class="thumb"><span class="cat-tag">Education</span><img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=700&q=80" alt="Back-to-School Drive"></div>
+        <div class="body">
+          <div class="meta-line"><span><i class="fa-regular fa-calendar"></i> Sep 4, 2026</span><span><i class="fa-solid fa-location-dot"></i> Hyderabad</span></div>
+          <h3>Back-to-School Drive</h3>
+          <p>Distributing bags, books and uniforms to 600 students starting the new term.</p>
+          <div class="card-actions">
+            <a href="programme-details.html" class="btn btn-outline btn-sm">View Details</a>
+            <a href="programme-details.html" class="btn btn-primary btn-sm">I'm Interested</a>
+          </div>
+        </div>
+      </div>
+      <div class="card card-hover programme-card">
+        <div class="thumb"><span class="cat-tag">Children Welfare</span><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=700&q=80" alt="Winter Shelter Build"></div>
+        <div class="body">
+          <div class="meta-line"><span><i class="fa-regular fa-calendar"></i> Sep 15, 2026</span><span><i class="fa-solid fa-location-dot"></i> Larkana</span></div>
+          <h3>Winter Shelter Build</h3>
+          <p>Volunteers and local NGOs building temporary winter shelters for displaced families.</p>
+          <div class="card-actions">
+            <a href="programme-details.html" class="btn btn-outline btn-sm">View Details</a>
+            <a href="programme-details.html" class="btn btn-primary btn-sm">I'm Interested</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="stats-band">
+    <div class="grid stats-grid">
+      <div class="stat-item"><div class="stat-num">Rs 86M+</div><div class="stat-label">Total Donations</div></div><div class="stat-item"><div class="stat-num">42,600+</div><div class="stat-label">People Helped</div></div><div class="stat-item"><div class="stat-num">310</div><div class="stat-label">Programmes Conducted</div></div><div class="stat-item"><div class="stat-num">128</div><div class="stat-label">Associated NGOs</div></div><div class="stat-item"><div class="stat-num">9,840</div><div class="stat-label">Registered Members</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="section-head"><div><span class="eyebrow">Trusted alongside</span><h2>Our Partners</h2></div></div>
+  <div class="card partners-strip">
+    <img src="https://dummyimage.com/140x40/1F5D50/ffffff.png&text=Northline+Corp" alt="Northline+Corp logo"><img src="https://dummyimage.com/140x40/1F5D50/ffffff.png&text=Sadaqat+Trust" alt="Sadaqat+Trust logo"><img src="https://dummyimage.com/140x40/1F5D50/ffffff.png&text=Meridian+Bank" alt="Meridian+Bank logo"><img src="https://dummyimage.com/140x40/1F5D50/ffffff.png&text=Karachi+Health+Co" alt="Karachi+Health+Co logo"><img src="https://dummyimage.com/140x40/1F5D50/ffffff.png&text=Bright+Future+Ltd" alt="Bright+Future+Ltd logo">
+  </div>
+</section>
+
+<section class="section container">
+  <div class="section-head">
+    <div><span class="eyebrow">Recent moments</span><h2>From the field</h2></div>
+    <a href="gallery.html" class="btn btn-outline">View full gallery</a>
+  </div>
+  <div class="grid gallery-grid">
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1593113630400-ea4288922497?w=500&q=80" alt=""><div class="overlay">Medical Camp — Lyari</div></div><div class="gallery-item"><img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=500&q=80" alt=""><div class="overlay">School Drive — Hyderabad</div></div><div class="gallery-item"><img src="https://images.unsplash.com/photo-1541823709867-1b206113eafd?w=500&q=80" alt=""><div class="overlay">Food Distribution</div></div><div class="gallery-item"><img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=500&q=80" alt=""><div class="overlay">Volunteer Orientation</div></div>
+  </div>
+</section>
+
+<section class="section container">
+  <div class="cta-band">
+    <h2>Ready to help something take root?</h2>
+    <p style="color:rgba(15,51,44,.75);max-width:52ch;margin:0 auto 24px;">Whether it's a one-time gift, a monthly pledge, or an afternoon volunteering — every form of support keeps the network growing.</p>
+    <div class="flex gap-3" style="justify-content:center;flex-wrap:wrap;">
+      <a href="donate.html" class="btn btn-primary">Donate Now</a>
+      <a href="register.html" class="btn btn-outline" style="border-color:var(--banyan-900);color:var(--banyan-900);">Join as a Member</a>
+      <a href="programmes.html" class="btn btn-outline" style="border-color:var(--banyan-900);color:var(--banyan-900);">Participate in a Programme</a>
+    </div>
+  </div>
+</section>
+<!-- Views/Shared/_Footer.cshtml -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="grid footer-grid">
+      <div>
+        <div class="brand"><svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="20" cy="20" r="20" fill="#1F5D50"/>
+<path d="M20 8c-1 3-3 4-3 7 0 2 1 3 3 3s3-1 3-3c0-3-2-4-3-7Z" fill="#F0A93C"/>
+<path d="M20 17v8M14 30c0-4 2-6 6-6s6 2 6 6M11 30h18M13 26c1-3 3-4 7-4M27 26c-1-3-3-4-7-4" stroke="#F0A93C" stroke-width="1.6" stroke-linecap="round"/>
+</svg><span>GIVE-AID</span></div>
+        <p style="color:rgba(255,255,255,.7);font-size:14px;max-width:34ch;">A community of associated NGOs working across welfare, education and healthcare — rooted locally, growing together.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="programmes.html">Programmes</a></li>
+          <li><a href="ngos.html">Associated NGOs</a></li>
+          <li><a href="partners.html">Our Partners</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="donate.html">Donate Now</a></li>
+          <li><a href="register.html">Become a Member</a></li>
+          <li><a href="invite-friends.html">Invite Friends</a></li>
+          <li><a href="help-centre.html">Help Centre</a></li>
+          <li><a href="query.html">Raise a Query</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><i class="fa-solid fa-location-dot"></i> &nbsp;12 Banyan Road, Karachi, Pakistan</li>
+          <li><i class="fa-solid fa-phone"></i> &nbsp;+92 21 3456 7890</li>
+          <li><i class="fa-solid fa-envelope"></i> &nbsp;hello@giveaid.org</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 GIVE-AID Foundation. All rights reserved.</span>
+      <span>Privacy Policy &nbsp;·&nbsp; Terms of Service</span>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/main.js"></script>
+
+</body>
+</html>

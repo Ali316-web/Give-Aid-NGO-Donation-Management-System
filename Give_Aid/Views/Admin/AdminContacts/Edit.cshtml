@@ -1,0 +1,83 @@
+﻿@model Give_Aid.Models.AdminContact
+
+@{
+    ViewData["Title"] = "Contact Message";
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+}
+
+<div class="breadcrumb" style="margin-bottom:14px;">
+    <a asp-controller="Home" asp-action="Index">Admin</a><span class="sep">/</span>
+    <a asp-action="Index">Contact Messages</a><span class="sep">/</span>
+    <span class="current">@Model.Subject</span>
+</div>
+
+<div class="page-head">
+    <div>
+        <h1>@Model.Subject</h1>
+        <p class="text-muted" style="margin:0;">
+            From <strong>@Model.FullName</strong> · @Model.FromEmail · @Model.Date.ToString("dd MMM yyyy, hh:mm tt")
+        </p>
+    </div>
+    <div>
+        @if (Model.Status == "Unread")
+        {
+            <span class="badge badge-danger">Unread</span>
+        }
+        else if (Model.Status == "Replied")
+        {
+            <span class="badge badge-success">Replied</span>
+        }
+        else
+        {
+            <span class="badge badge-neutral">Read</span>
+        }
+    </div>
+</div>
+
+<div class="card">
+    <div style="padding:24px;">
+        <form asp-action="Edit" method="post">
+
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Date" />
+            <input type="hidden" asp-for="FullName" />
+            <input type="hidden" asp-for="FromEmail" />
+            <input type="hidden" asp-for="Subject" />
+            <input type="hidden" asp-for="Message" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="field">
+                <label>Message</label>
+                <textarea class="input" rows="5" readonly>@Model.Message</textarea>
+            </div>
+
+            <div class="field" style="margin-top:16px;">
+                <label asp-for="Reply">Reply</label>
+                <textarea asp-for="Reply" class="input" rows="4" placeholder="Type your reply…"></textarea>
+                <span asp-validation-for="Reply" class="text-danger"></span>
+            </div>
+
+            <div class="field" style="margin-top:16px;max-width:220px;">
+                <label asp-for="Status">Status</label>
+                <select asp-for="Status" class="input">
+                    <option value="Unread">Unread</option>
+                    <option value="Read">Read</option>
+                    <option value="Replied">Replied</option>
+                </select>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="modal-actions" style="justify-content:flex-start;margin-top:24px;">
+                <button type="submit" class="btn btn-primary">Send Reply</button>
+                <a asp-action="Index" class="btn btn-outline">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

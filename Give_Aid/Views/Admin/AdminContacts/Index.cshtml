@@ -1,0 +1,119 @@
+﻿@model IEnumerable<Give_Aid.Models.AdminContact>
+
+@{
+    ViewData["Title"] = "Contact Messages";
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+}
+
+<div class="breadcrumb" style="margin-bottom:14px;">
+    <a asp-controller="Home" asp-action="Index">Admin</a><span class="sep">/</span><span class="current">Contact Messages</span>
+</div>
+
+<div class="page-head">
+    <div>
+        <h1>Contact Messages</h1>
+        <p class="text-muted" style="margin:0;max-width:56ch;">Messages submitted through the public Contact Us form.</p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="toolbar">
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input class="input" id="messageSearch" placeholder="Search messages…" onkeyup="filterMessages()">
+        </div>
+        <div class="filter-row">
+            <button type="button" class="btn btn-outline btn-sm"><i class="fa-solid fa-filter"></i> Filter</button>
+        </div>
+    </div>
+
+    <div class="table-wrap">
+        <table class="data-table" id="messagesTable">
+            <thead>
+                <tr>
+                    <th>From</th>
+                    <th>Subject</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var msg in Model.OrderByDescending(m => m.Date))
+                    {
+                        <tr>
+                            <td>
+                                @msg.FullName<br>
+                                <span class="text-muted" style="font-size:12px;">@msg.FromEmail</span>
+                            </td>
+                            <td>@msg.Subject</td>
+                            <td>@msg.Date.ToString("MMM dd, yyyy")</td>
+                            <td>
+                                @if (msg.Status == "Unread")
+                                {
+                                    <span class="badge badge-danger">Unread</span>
+                                }
+                                else if (msg.Status == "Replied")
+                                {
+                                    <span class="badge badge-success">Replied</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-neutral">Read</span>
+                                }
+                            </td>
+                            <td class="row-actions">
+                                <a asp-action="Edit" asp-route-id="@msg.Id" class="icon-btn" title="View">
+                                    <i class="fa-regular fa-eye"></i>
+                                </a>
+                                <a href="#" class="icon-btn danger" title="Delete"
+                                   data-modal-target="#deleteMsgModal"
+                                   onclick="document.getElementById('confirmDeleteMsgBtn').href='@Url.Action("Delete", new { id = msg.Id })'">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5" class="text-center py-4">No messages yet.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination">
+        <span class="meta">Showing @(Model?.Count() ?? 0) message@(Model != null && Model.Count() == 1 ? "" : "s")</span>
+    </div>
+</div>
+
+<div class="modal-backdrop" id="deleteMsgModal">
+    <div class="modal">
+        <div class="modal-icon danger"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        <h3>Delete this message?</h3>
+        <p class="text-muted">This cannot be undone.</p>
+        <div class="modal-actions">
+            <button type="button" class="btn btn-outline" data-modal-close>Cancel</button>
+            <a id="confirmDeleteMsgBtn" href="#" class="btn btn-danger" data-modal-close>Confirm Delete</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function filterMessages() {
+            const q = document.getElementById('messageSearch').value.toLowerCase();
+            document.querySelectorAll('#messagesTable tbody tr').forEach(function (row) {
+                if (row.cells.length < 2) return;
+                const from = row.cells[0].innerText.toLowerCase();
+                const subject = row.cells[1].innerText.toLowerCase();
+                row.style.display = (from.includes(q) || subject.includes(q)) ? '' : 'none';
+            });
+        }
+    </script>
+}

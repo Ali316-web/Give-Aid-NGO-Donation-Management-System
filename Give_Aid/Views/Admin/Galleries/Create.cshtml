@@ -1,0 +1,52 @@
+@model Give_Aid.Models.Gallery
+@{
+    ViewData["Title"] = "Upload Image";
+    Layout = "_adminlayout";
+    var programmes = ViewBag.Programmes as List<Give_Aid.Models.Programmers> ?? new();
+}
+
+<div class="page-head"><div><h1>Upload Image</h1></div></div>
+
+<div class="card">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="field">
+            <label>Image URL<span class="req">*</span></label>
+            <input class="input" asp-for="Image" placeholder="https://…" />
+            <span asp-validation-for="Image" class="error-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Caption<span class="req">*</span></label>
+            <input class="input" asp-for="Title" placeholder="Short caption" />
+            <span asp-validation-for="Title" class="error-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Category<span class="req">*</span></label>
+            <select class="input" asp-for="Category">
+                <option>Healthcare</option>
+                <option>Education</option>
+                <option>Children Welfare</option>
+                <option>Women Welfare</option>
+                <option>Elderly Welfare</option>
+            </select>
+            <span asp-validation-for="Category" class="error-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Linked Programme</label>
+            <select class="input" asp-for="ProgrammeId">
+                <option value="">None</option>
+                @foreach (var p in programmes)
+                {
+                    <option value="@p.Id">@p.Programme</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm">Save Image</button>
+        <a asp-action="AdminIndex" class="btn btn-outline btn-sm">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Give_Aid.Models.Partners>
+
+@{
+    ViewData["Title"] = "Our Partners";
+    Layout = "_clientlayout";
+}
+
+<section class="section container">
+    <div class="text-center" style="margin-bottom:28px;">
+        <span class="eyebrow" style="justify-content:center;">Working together</span>
+        <h1>Our Partners</h1>
+        <p style="max-width:56ch;margin:0 auto;">Corporate and institutional partners who help fund, sponsor and scale GIVE-AID's programmes.</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns:repeat(2,1fr);">
+        @foreach (var partner in Model)
+        {
+            <div class="card flex gap-4">
+                @if (!string.IsNullOrWhiteSpace(partner.LogoUrl))
+                {
+                    <img src="@partner.LogoUrl" style="width:72px;height:72px;border-radius:var(--radius-md);flex-shrink:0;object-fit:cover;" alt="@partner.OrganizationName" />
+                }
+                <div>
+                    <span class="badge badge-info" style="margin-bottom:6px;">@partner.OrganizationType</span>
+                    <h3 style="font-size:16.5px;">@partner.OrganizationName</h3>
+                    @if (!string.IsNullOrWhiteSpace(partner.Description))
+                    {
+                        <p style="font-size:13.5px;">@partner.Description</p>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(partner.Website))
+                    {
+                        <a href="@partner.Website" target="_blank" rel="noopener" style="font-size:13px;font-weight:700;color:var(--banyan-700);">
+                            Visit website <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+        @if (!Model.Any())
+        {
+            <p class="text-muted">No partners to show yet.</p>
+        }
+    </div>
+</section>

@@ -1,0 +1,37 @@
+@model Give_Aid.Models.Partners
+
+@{
+    ViewData["Title"] = "Add Partner";
+    Layout = "_adminlayout";
+}
+
+<div class="page-head">
+    <div><h1>Add Partner</h1></div>
+</div>
+
+<div class="card">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-grid">
+            <div class="field"><label>Partner Name<span class="req">*</span></label><input class="input" asp-for="OrganizationName" placeholder="Organization name" /></div>
+            <div class="field"><label>Type<span class="req">*</span></label><input class="input" asp-for="OrganizationType" placeholder="e.g. Corporate Sponsor" /></div>
+        </div>
+
+        <div class="field"><label>Website</label><input class="input" asp-for="Website" placeholder="https://" /></div>
+        <div class="field"><label>Description</label><textarea class="input" asp-for="Description" rows="3" placeholder="Short description shown publicly"></textarea></div>
+        <div class="field"><label>Contact Email</label><input class="input" asp-for="ContactEmail" placeholder="contact@partner.com" /></div>
+        <div class="field"><label>Logo URL</label><input class="input" asp-for="LogoUrl" placeholder="https://…" /></div>
+
+        <div class="field">
+            <label>Status</label>
+            <select class="input" asp-for="Status">
+                <option>Active</option>
+                <option>Inactive</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm">Save Partner</button>
+        <a asp-action="Index" class="btn btn-outline btn-sm">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,84 @@
+@model IEnumerable<Give_Aid.Models.Programmers>
+
+@{
+    ViewData["Title"] = "Programmes";
+    Layout = "_clientlayout";
+    var categories = Model.Select(p => p.Category).Distinct().OrderBy(c => c).ToList();
+}
+
+<section class="section container">
+    <div class="text-center" style="margin-bottom:28px;">
+        <span class="eyebrow" style="justify-content:center;">Get involved</span>
+        <h1>Programmes</h1>
+        <p style="max-width:56ch;margin:0 auto;">Browse programmes run by GIVE-AID's associated NGOs and register your interest to take part.</p>
+    </div>
+
+    <div class="gallery-filters" data-filter-group style="justify-content:center;">
+        <div class="chip active" data-filter="all">All</div>
+        @foreach (var cat in categories)
+        {
+            <div class="chip" data-filter="@cat">@cat</div>
+        }
+    </div>
+
+    <div class="grid programmes-grid" id="progGrid">
+        @foreach (var p in Model)
+        {
+            var badgeClass = p.Status switch
+            {
+                "Upcoming" => "badge-info",
+                "Ongoing" => "badge-warning",
+                "Cancelled" => "badge-danger",
+                _ => "badge-neutral"
+            };
+            <div class="card card-hover programme-card" data-gallery-item data-category="@p.Category">
+                <div class="thumb">
+                    <span class="cat-tag">@p.Category</span>
+                    @if (!string.IsNullOrWhiteSpace(p.ImageUrl))
+                    {
+                        <img src="@p.ImageUrl" alt="@p.Programme">
+                    }
+                </div>
+                <div class="body">
+                    <div class="meta-line">
+                        <span><i class="fa-regular fa-calendar"></i> @p.ProgrammeDate.ToString("MMM dd, yyyy")</span>
+                        <span><i class="fa-solid fa-location-dot"></i> @p.Location</span>
+                    </div>
+                    <h3>@p.Programme</h3>
+                    @if (!string.IsNullOrWhiteSpace(p.Description))
+                    {
+                        <p>@(p.Description.Length > 100 ? p.Description.Substring(0, 100) + "…" : p.Description)</p>
+                    }
+                    <div class="flex justify-between items-center" style="margin-bottom:6px;">
+                        <span class="badge @badgeClass">@p.Status</span>
+                    </div>
+                    <div class="card-actions">
+                        <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-outline btn-sm">View Details</a>
+                        <a asp-action="Details" asp-route-id="@p.Id" class="btn btn-primary btn-sm">I'm Interested</a>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (!Model.Any())
+        {
+            <p class="text-muted">No programmes to show yet.</p>
+        }
+    </div>
+</section>
+
+@section Scripts {
+<script>
+    // Client-side category filtering, same behaviour as the original mockup's data-filter-group.
+    document.querySelectorAll('[data-filter-group] .chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('[data-filter-group] .chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            var filter = chip.getAttribute('data-filter');
+            document.querySelectorAll('#progGrid [data-gallery-item]').forEach(card => {
+                var show = filter === 'all' || card.getAttribute('data-category') === filter;
+                card.style.display = show ? '' : 'none';
+            });
+        });
+    });
+</script>
+}

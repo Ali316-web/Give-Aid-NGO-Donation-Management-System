@@ -1,0 +1,80 @@
+@model Give_Aid.Models.Programmers
+
+@{
+    ViewData["Title"] = Model.Programme;
+    Layout = "_clientlayout";
+    var badgeClass = Model.Status switch
+    {
+        "Upcoming" => "badge-info",
+        "Ongoing" => "badge-warning",
+        "Cancelled" => "badge-danger",
+        _ => "badge-neutral"
+    };
+}
+
+<section class="section container" style="max-width:920px;">
+    <div class="breadcrumb" style="margin-bottom:18px;">
+        <a asp-controller="Home" asp-action="Index">Home</a><span class="sep">/</span>
+        <a asp-action="Index">Programmes</a><span class="sep">/</span>
+        <span class="current">@Model.Programme</span>
+    </div>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success" style="margin-bottom:20px;">@TempData["Message"]</div>
+    }
+
+    @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+    {
+        <div style="border-radius:var(--radius-lg);overflow:hidden;margin-bottom:24px;aspect-ratio:21/9;">
+            <img src="@Model.ImageUrl" style="width:100%;height:100%;object-fit:cover;" alt="@Model.Programme">
+        </div>
+    }
+
+    <div class="grid" style="grid-template-columns:1.6fr 1fr;align-items:start;">
+        <div>
+            <span class="badge @badgeClass" style="margin-bottom:10px;">@Model.Category</span>
+            <h1 style="margin-bottom:14px;">@Model.Programme — @Model.Location</h1>
+            @if (!string.IsNullOrWhiteSpace(Model.Description))
+            {
+                <p>@Model.Description</p>
+            }
+
+            <div class="section-divider">What to expect</div>
+            <div class="detail-list">
+                <div class="detail-row"><span class="k">Registered so far</span><span class="v">@ViewBag.ParticipantCount interested</span></div>
+            </div>
+        </div>
+
+        <div class="card" style="position:sticky;top:100px;">
+            <div class="detail-list" style="margin-bottom:18px;">
+                <div class="detail-row"><span class="k"><i class="fa-regular fa-calendar"></i> Date</span><span class="v">@Model.ProgrammeDate.ToString("MMM dd, yyyy")</span></div>
+                <div class="detail-row"><span class="k"><i class="fa-solid fa-location-dot"></i> Location</span><span class="v">@Model.Location</span></div>
+                <div class="detail-row"><span class="k">Status</span><span class="badge @badgeClass">@Model.Status</span></div>
+            </div>
+
+            @if (ViewBag.AlreadyInterested == true)
+            {
+                <div class="alert alert-info">You're already registered for this programme.</div>
+            }
+            else if (User.Identity?.IsAuthenticated == true)
+            {
+                <form asp-action="Interested" asp-route-id="@Model.Id" method="post">
+                    <div class="field">
+                        <label>Notes (optional)</label>
+                        <textarea class="input" name="notes" placeholder="e.g. I'm a registered nurse and can help with triage"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-accent btn-block"><i class="fa-regular fa-hand"></i> I'm Interested</button>
+                </form>
+            }
+            else
+            {
+                <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@Url.Action("Details", "Programmers", new { id = Model.Id })" class="btn btn-accent btn-block">
+                    Log in to register interest
+                </a>
+            }
+
+            <a asp-controller="Donate" asp-action="Index" class="btn btn-outline btn-block" style="margin-top:10px;">Support this Programme</a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,28 @@
+@model Give_Aid.Models.Programmers
+@{
+    ViewData["Title"] = "Delete Programme";
+    Layout = "_adminlayout";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Delete this programme?</h1>
+        <p class="text-muted" style="margin:0;">Registered interest records will also be removed.</p>
+    </div>
+</div>
+
+<div class="card" style="border-color:var(--danger,#dc2626);">
+    <dl class="row">
+        <dt class="col-sm-3">Programme</dt>
+        <dd class="col-sm-9">@Model.Programme</dd>
+
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">@Model.ProgrammeDate.ToString("MMM dd, yyyy")</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a asp-action="AdminIndex" class="btn btn-outline">Cancel</a>
+    </form>
+</div>

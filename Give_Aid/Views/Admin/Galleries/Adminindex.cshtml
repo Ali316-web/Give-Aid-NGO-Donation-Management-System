@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Give_Aid.Models.Gallery>
+@{
+    ViewData["Title"] = "Gallery";
+    Layout = "_adminlayout";
+}
+
+<div class="breadcrumb" style="margin-bottom:14px;">
+    <a asp-controller="Home" asp-action="Admin">Admin</a><span class="sep">/</span><span class="current">Gallery</span>
+</div>
+
+<div class="page-head">
+    <div>
+        <h1>Gallery Management</h1>
+        <p class="text-muted" style="margin:0;max-width:56ch;">Upload and organize photos from GIVE-AID programmes.</p>
+    </div>
+    <div class="flex gap-2">
+        <a asp-action="Create" class="btn btn-primary btn-sm"><i class="fa-solid fa-upload"></i> Upload Image</a>
+    </div>
+</div>
+
+<div class="grid" style="grid-template-columns:repeat(4,1fr);">
+    @foreach (var item in Model)
+    {
+        <div class="card" style="padding:0;overflow:hidden;">
+            <img src="@item.Image" style="width:100%;aspect-ratio:4/3;object-fit:cover;" alt="@item.Title">
+            <div style="padding:12px 14px;">
+                <div style="font-size:13.5px;font-weight:700;margin-bottom:2px;">@item.Title</div>
+                <span class="badge badge-neutral" style="margin-bottom:8px;">@item.Category</span>
+                @if (item.Programme != null)
+                {
+                    <div class="text-muted" style="font-size:12px;">Linked: @item.Programme.Programme</div>
+                }
+                <div class="row-actions" style="margin-top:6px;">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="icon-btn" title="Edit"><i class="fa-solid fa-pen"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="icon-btn danger" title="Delete"><i class="fa-solid fa-trash"></i></a>
+                </div>
+            </div>
+        </div>
+    }
+    @if (!Model.Any())
+    {
+        <p class="text-muted">No photos yet.</p>
+    }
+</div>

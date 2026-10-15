@@ -1,0 +1,171 @@
+﻿@model Give_Aid.Models.HomeIndexViewModel
+
+<section class="hero">
+    <svg class="rings-bg" width="520" height="520" viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="260" cy="260" r="240" stroke="#F0A93C" stroke-width="1" />
+        <circle cx="260" cy="260" r="190" stroke="#F0A93C" stroke-width="1" />
+        <circle cx="260" cy="260" r="140" stroke="#F0A93C" stroke-width="1" />
+        <circle cx="260" cy="260" r="90" stroke="#F0A93C" stroke-width="1" />
+    </svg>
+    <div class="container hero-grid">
+        <div>
+            <span class="eyebrow">Rooted in community</span>
+            <h1>Every gift takes root and grows into shelter for someone else.</h1>
+            <p class="lead">GIVE-AID connects donors with a network of associated NGOs working across children's welfare, education, healthcare and more — so your support reaches exactly where it's needed.</p>
+            <div class="hero-actions">
+                <a asp-controller="Donate" asp-action="Index" class="btn btn-accent"><i class="fa-solid fa-heart"></i> Donate Now</a>
+                <a asp-controller="Programmers" asp-action="Index" class="btn btn-outline-light">Explore Programmes</a>
+            </div>
+            <div class="flex gap-4" style="margin-top:36px;">
+                <div><strong style="color:#fff;font-family:var(--font-display);font-size:22px;">128</strong><div style="font-size:12.5px;color:rgba(255,255,255,.65);">Associated NGOs</div></div>
+                <div><strong style="color:#fff;font-family:var(--font-display);font-size:22px;">42,600+</strong><div style="font-size:12.5px;color:rgba(255,255,255,.65);">People helped</div></div>
+                <div><strong style="color:#fff;font-family:var(--font-display);font-size:22px;">Rs 86M</strong><div style="font-size:12.5px;color:rgba(255,255,255,.65);">Raised to date</div></div>
+            </div>
+        </div>
+        <div class="hero-art">
+            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=900&q=80" alt="Volunteers distributing aid supplies to a community">
+            <div class="float-stat"><i class="fa-solid fa-circle-check" style="color:var(--banyan-700)"></i> 96% of donations reach programmes directly</div>
+        </div>
+    </div>
+</section>
+
+<section class="section container">
+    <div class="section-head">
+        <div>
+            <span class="eyebrow">Where your gift goes</span>
+            <h2>Choose a cause close to your heart</h2>
+            <p>Every cause is run through a vetted associated NGO with transparent, trackable spending.</p>
+        </div>
+        <a asp-controller="Donate" asp-action="Index" class="btn btn-outline">View all causes</a>
+    </div>
+    <div class="grid causes-grid">
+        @foreach (var cause in Model.Causes)
+        {
+            var goal = cause.Goal ?? 0;
+            var percent = goal > 0 ? Math.Min(100, (int)(cause.Raised / goal * 100)) : 0;
+            <div class="card card-hover cause-card">
+                <div class="cause-icon">
+                    <i class="@(string.IsNullOrWhiteSpace(cause.Icon) ? "fa-solid fa-heart" : cause.Icon)"></i>
+                </div>
+                <h3>@cause.Cause</h3>
+                @if (!string.IsNullOrWhiteSpace(cause.Description))
+                {
+                    <p>@cause.Description</p>
+                }
+                <div class="cause-meta">
+                    <span>Rs @cause.Raised.ToString("N0")</span>
+                    @if (cause.Goal.HasValue)
+                    {
+                        <span>of Rs @cause.Goal.Value.ToString("N0")</span>
+                    }
+                </div>
+                @if (cause.Goal.HasValue)
+                {
+                    <div class="progress-track"><div class="progress-fill" style="width:@(percent)%"></div></div>
+                }
+                <a asp-controller="Donate" asp-action="Index" class="btn btn-primary btn-sm btn-block">Donate to this cause</a>
+            </div>
+        }
+        @if (!Model.Causes.Any())
+        {
+            <p class="text-muted">No active causes to show right now.</p>
+        }
+    </div>
+</section>
+
+<section class="section" style="background:var(--banyan-50);">
+    <div class="container">
+        <div class="section-head">
+            <div>
+                <span class="eyebrow">Get involved</span>
+                <h2>Upcoming &amp; recent programmes</h2>
+                <p>Join a programme near you, or follow along with what associated NGOs are running this month.</p>
+            </div>
+            <a asp-controller="Programmers" asp-action="Index" class="btn btn-outline">View all programmes</a>
+        </div>
+        <div class="grid programmes-grid">
+            @foreach (var p in Model.Programmes)
+            {
+                <div class="card card-hover programme-card">
+                    <div class="thumb">
+                        <span class="cat-tag">@p.Category</span>
+                        @if (!string.IsNullOrWhiteSpace(p.ImageUrl))
+                        {
+                            <img src="@p.ImageUrl" alt="@p.Programme">
+                        }
+                    </div>
+                    <div class="body">
+                        <div class="meta-line">
+                            <span><i class="fa-regular fa-calendar"></i> @p.ProgrammeDate.ToString("MMM dd, yyyy")</span>
+                            <span><i class="fa-solid fa-location-dot"></i> @p.Location</span>
+                        </div>
+                        <h3>@p.Programme</h3>
+                        @if (!string.IsNullOrWhiteSpace(p.Description))
+                        {
+                            <p>@(p.Description.Length > 100 ? p.Description.Substring(0, 100) + "…" : p.Description)</p>
+                        }
+                        <div class="card-actions">
+                            <a asp-controller="Programmers" asp-action="Details" asp-route-id="@p.Id" class="btn btn-outline btn-sm">View Details</a>
+                            <a asp-controller="Programmers" asp-action="Details" asp-route-id="@p.Id" class="btn btn-primary btn-sm">I'm Interested</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (!Model.Programmes.Any())
+            {
+                <p class="text-muted">No upcoming programmes right now — check back soon.</p>
+            }
+        </div>
+    </div>
+</section>
+
+<section class="section container">
+    <div class="stats-band">
+        <div class="grid stats-grid">
+            <div class="stat-item"><div class="stat-num">Rs 86M+</div><div class="stat-label">Total Donations</div></div>
+            <div class="stat-item"><div class="stat-num">42,600+</div><div class="stat-label">People Helped</div></div>
+            <div class="stat-item"><div class="stat-num">310</div><div class="stat-label">Programmes Conducted</div></div>
+            <div class="stat-item"><div class="stat-num">128</div><div class="stat-label">Associated NGOs</div></div>
+            <div class="stat-item"><div class="stat-num">9,840</div><div class="stat-label">Registered Members</div></div>
+        </div>
+    </div>
+</section>
+
+<section class="section container">
+    <div class="section-head"><div><span class="eyebrow">Trusted alongside</span><h2>Our Partners</h2></div></div>
+    <div class="card partners-strip">
+        @foreach (var partner in Model.Partners)
+        {
+            <img src="@partner.LogoUrl" alt="@partner.OrganizationName logo">
+        }
+        @if (!Model.Partners.Any())
+        {
+            <p class="text-muted">No partners to show yet.</p>
+        }
+    </div>
+</section>
+
+<section class="section container">
+    <div class="section-head">
+        <div><span class="eyebrow">Recent moments</span><h2>From the field</h2></div>
+        <a asp-controller="Galleries" asp-action="Index" class="btn btn-outline">View full gallery</a>
+    </div>
+    <div class="grid gallery-grid">
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1593113630400-ea4288922497?w=500&q=80" alt=""><div class="overlay">Medical Camp — Lyari</div></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=500&q=80" alt=""><div class="overlay">School Drive — Hyderabad</div></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1541823709867-1b206113eafd?w=500&q=80" alt=""><div class="overlay">Food Distribution</div></div>
+        <div class="gallery-item"><img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=500&q=80" alt=""><div class="overlay">Volunteer Orientation</div></div>
+    </div>
+</section>
+
+<section class="section container">
+    <div class="cta-band">
+        <h2>Ready to help something take root?</h2>
+        <p style="color:rgba(15,51,44,.75);max-width:52ch;margin:0 auto 24px;">Whether it's a one-time gift, a monthly pledge, or an afternoon volunteering — every form of support keeps the network growing.</p>
+        <div class="flex gap-3" style="justify-content:center;flex-wrap:wrap;">
+            <a asp-controller="Donate" asp-action="Index" class="btn btn-primary">Donate Now</a>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-outline" style="border-color:var(--banyan-900);color:var(--banyan-900);">Join as a Member</a>
+            <a asp-controller="Programmers" asp-action="Index" class="btn btn-outline" style="border-color:var(--banyan-900);color:var(--banyan-900);">Participate in a Programme</a>
+        </div>
+    </div>
+</section>

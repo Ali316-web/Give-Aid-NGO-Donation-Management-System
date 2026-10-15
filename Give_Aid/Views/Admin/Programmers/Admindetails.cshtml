@@ -1,0 +1,35 @@
+﻿@model Give_Aid.Models.Programmers
+@{
+    ViewData["Title"] = "Programme Details";
+    Layout = "_adminlayout";
+}
+
+<div class="page-head">
+    <div><h1>@Model.Programme</h1></div>
+</div>
+
+<div class="card">
+    <dl class="row">
+        <dt class="col-sm-3">Category</dt>
+        <dd class="col-sm-9">@Model.Category</dd>
+
+        <dt class="col-sm-3">Date</dt>
+        <dd class="col-sm-9">@Model.ProgrammeDate.ToString("MMM dd, yyyy")</dd>
+
+        <dt class="col-sm-3">Location</dt>
+        <dd class="col-sm-9">@Model.Location</dd>
+
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">@(Model.Description ?? "—")</dd>
+
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">@Model.Status</dd>
+
+        <dt class="col-sm-3">Interested</dt>
+        <dd class="col-sm-9">@ViewBag.ParticipantCount</dd>
+    </dl>
+
+    <a asp-action="Participants" asp-route-id="@Model.Id" class="btn btn-outline btn-sm">View Participants</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">Edit</a>
+    <a asp-action="AdminIndex" class="btn btn-outline btn-sm">Back to Programmes</a>
+</div>

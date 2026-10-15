@@ -1,0 +1,29 @@
+@model Give_Aid.Models.Gallery
+@{
+    ViewData["Title"] = "Delete Image";
+    Layout = "_adminlayout";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Delete this image?</h1>
+        <p class="text-muted" style="margin:0;">It will be removed from the public gallery immediately.</p>
+    </div>
+</div>
+
+<div class="card" style="border-color:var(--danger,#dc2626);">
+    <img src="@Model.Image" style="width:200px;border-radius:8px;margin-bottom:14px;" alt="@Model.Title">
+    <dl class="row">
+        <dt class="col-sm-3">Caption</dt>
+        <dd class="col-sm-9">@Model.Title</dd>
+
+        <dt class="col-sm-3">Category</dt>
+        <dd class="col-sm-9">@Model.Category</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a asp-action="AdminIndex" class="btn btn-outline">Cancel</a>
+    </form>
+</div>

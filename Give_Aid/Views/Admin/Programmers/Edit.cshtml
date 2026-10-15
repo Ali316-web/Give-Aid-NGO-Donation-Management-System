@@ -1,0 +1,48 @@
+@model Give_Aid.Models.Programmers
+@{
+    ViewData["Title"] = "Edit Programme";
+    Layout = "_adminlayout";
+}
+
+<div class="page-head"><div><h1>Edit Programme</h1></div></div>
+
+<div class="card">
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-grid">
+            <div class="field"><label>Programme Name<span class="req">*</span></label><input class="input" asp-for="Programme" /></div>
+            <div class="field">
+                <label>Category<span class="req">*</span></label>
+                <select class="input" asp-for="Category">
+                    <option>Healthcare</option>
+                    <option>Education</option>
+                    <option>Children Welfare</option>
+                    <option>Women Welfare</option>
+                    <option>Elderly Welfare</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-grid">
+            <div class="field"><label>Date<span class="req">*</span></label><input class="input" asp-for="ProgrammeDate" type="date" /></div>
+            <div class="field"><label>Location<span class="req">*</span></label><input class="input" asp-for="Location" /></div>
+        </div>
+
+        <div class="field"><label>Description</label><textarea class="input" asp-for="Description" rows="3"></textarea></div>
+        <div class="field"><label>Programme Image URL</label><input class="input" asp-for="ImageUrl" /></div>
+
+        <div class="field">
+            <label>Status</label>
+            <select class="input" asp-for="Status">
+                <option>Upcoming</option>
+                <option>Ongoing</option>
+                <option>Completed</option>
+                <option>Cancelled</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+        <a asp-action="AdminIndex" class="btn btn-outline btn-sm">Cancel</a>
+    </form>
+</div>

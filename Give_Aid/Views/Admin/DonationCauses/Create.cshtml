@@ -1,0 +1,41 @@
+@model Give_Aid.Models.DonationCause
+@{
+    ViewData["Title"] = "Add Donation Cause";
+    Layout = "_adminlayout";
+}
+
+<div class="page-head"><div><h1>Add Donation Cause</h1></div></div>
+
+<div class="card">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="field">
+            <label>Cause Name<span class="req">*</span></label>
+            <input class="input" asp-for="Cause" placeholder="e.g. Flood Relief" />
+            <span asp-validation-for="Cause" class="error-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Icon</label>
+            <input class="input" asp-for="Icon" placeholder="e.g. fa-solid fa-house-flood-water" />
+            <span asp-validation-for="Icon" class="error-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Description</label>
+            <textarea class="input" asp-for="Description" rows="3" placeholder="Short description shown to donors"></textarea>
+            <span asp-validation-for="Description" class="error-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Fundraising Goal (Rs)</label>
+            <input class="input" asp-for="Goal" type="number" placeholder="e.g. 2000000" />
+            <span asp-validation-for="Goal" class="error-msg"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm">Save Cause</button>
+        <a asp-action="Index" class="btn btn-outline btn-sm">Cancel</a>
+    </form>
+</div>
+    

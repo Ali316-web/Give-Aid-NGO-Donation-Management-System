@@ -1,0 +1,130 @@
+@model Give_Aid.Models.DonationCause
+
+@{
+    ViewData["Title"] = "Donation Cause Details";
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+}
+
+<div class="container-fluid py-4">
+
+    <!-- Header -->
+    <div class="mb-4">
+
+        <div class="text-muted mb-2">
+            Admin / Donations / Causes / Details
+        </div>
+
+        <h2 class="fw-bold mb-1">
+            Donation Cause Details
+        </h2>
+
+        <p class="text-muted mb-0">
+            View donation cause information.
+        </p>
+
+    </div>
+
+
+    <!-- Details Card -->
+    <div class="card shadow-sm border-0">
+
+        <div class="card-body p-4">
+
+            <div class="row">
+
+                <!-- Cause -->
+                <div class="col-md-6 mb-4">
+
+                    <label class="text-muted fw-semibold">
+                        Cause
+                    </label>
+
+                    <div class="fs-5 mt-1">
+                        @Model.Cause
+                    </div>
+
+                </div>
+
+
+                <!-- Raised -->
+                <div class="col-md-6 mb-4">
+
+                    <label class="text-muted fw-semibold">
+                        Raised
+                    </label>
+
+                    <div class="fs-5 mt-1">
+                        Rs @Model.Raised.ToString("N0") raised
+                    </div>
+
+                </div>
+
+
+                <!-- Status -->
+                <div class="col-md-6 mb-4">
+
+                    <label class="text-muted fw-semibold">
+                        Status
+                    </label>
+
+                    <div class="mt-2">
+
+                        @if (Model.Status == "Active")
+                        {
+                            <span class="badge bg-success-subtle text-success px-3 py-2">
+                                <i class="bi bi-circle-fill"
+                                   style="font-size: 7px;"></i>
+                                Active
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary-subtle text-secondary px-3 py-2">
+                                <i class="bi bi-circle-fill"
+                                   style="font-size: 7px;"></i>
+                                Inactive
+                            </span>
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Buttons -->
+            <div class="d-flex gap-2 mt-3">
+
+                <a asp-action="Edit"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-success">
+
+                    <i class="bi bi-pencil"></i>
+                    Edit
+
+                </a>
+
+                <a asp-action="Delete"
+                   asp-route-id="@Model.Id"
+                   class="btn btn-outline-danger">
+
+                    <i class="bi bi-trash"></i>
+                    Delete
+
+                </a>
+
+                <a asp-action="Index"
+                   class="btn btn-outline-secondary">
+
+                    Back to List
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

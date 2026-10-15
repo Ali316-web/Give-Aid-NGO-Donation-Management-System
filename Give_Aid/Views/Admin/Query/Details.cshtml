@@ -1,0 +1,86 @@
+﻿@model Give_Aid.Models.Queries
+
+@{
+    ViewData["Title"] = $"Query #Q-{Model.Id:D4}";
+    Layout = User.IsInRole("Admin") ? "_adminlayout" : "_clientlayout";
+    var badgeClass = Model.Status switch
+    {
+        "Replied" => "badge-success",
+        "In Progress" => "badge-warning",
+        "Closed" => "badge-neutral",
+        _ => "badge-danger"
+    };
+}
+
+<div class="@(User.IsInRole("Admin") ? "" : "section container")">
+
+    <div class="flex justify-between items-center" style="margin-bottom:14px;">
+        <h1 style="margin:0;font-size:22px;">Query #Q-@Model.Id.ToString("D4")</h1>
+        <span class="badge @badgeClass">@Model.Status</span>
+    </div>
+
+    <div class="card" style="margin-bottom:20px;">
+        <div class="thread-msg">
+            <div>
+                <div class="bubble">@Model.Message</div>
+                <div class="msg-meta">@Model.Name · @Model.SubmittedDate.ToString("MMM dd, yyyy")</div>
+            </div>
+        </div>
+
+        <dl class="row" style="margin-top:16px;">
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+
+            @* <dt class="col-sm-3">Phone</dt>
+            <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.Phone) ? "—" : Model.Phone)</dd> *@
+
+            <dt class="col-sm-3">Category</dt>
+            <dd class="col-sm-9">@Model.Category</dd>
+        </dl>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Reply))
+        {
+            <div class="thread-msg admin-msg" style="margin-top:16px;">
+                <div>
+                    <div class="bubble">@Model.Reply</div>
+                    <div class="msg-meta" style="text-align:right;">
+                        GIVE-AID Support · @Model.RepliedDate?.ToString("MMM dd, yyyy")
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="card">
+            <h3 style="margin-top:0;">Reply to this query</h3>
+            <form asp-action="Reply" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+
+                <div class="field">
+                    <label>Response</label>
+                    <textarea class="input" name="reply" rows="4" required>@Model.Reply</textarea>
+                </div>
+
+                <div class="field">
+                    <label>Status</label>
+                    <select class="input" name="status">
+                        <option value="Pending" selected="@(Model.Status == "Pending")">Pending</option>
+                        <option value="In Progress" selected="@(Model.Status == "In Progress")">In Progress</option>
+                        <option value="Replied" selected="@(Model.Status == "Replied")">Replied</option>
+                        <option value="Closed" selected="@(Model.Status == "Closed")">Closed</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-sm">Send Reply</button>
+                <a asp-action="Index" class="btn btn-outline btn-sm">Back to Queries</a>
+            </form>
+        </div>
+    }
+    else
+    {
+        <a asp-action="Create" class="btn btn-outline btn-sm">Back to My Queries</a>
+    }
+
+</div>

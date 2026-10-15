@@ -1,0 +1,52 @@
+@model IEnumerable<Give_Aid.Models.Gallery>
+@{
+    ViewData["Title"] = "Gallery";
+    Layout = "_clientlayout";
+    var categories = Model.Select(g => g.Category).Distinct().OrderBy(c => c).ToList();
+}
+
+<section class="section container">
+    <div class="text-center" style="margin-bottom:24px;">
+        <span class="eyebrow" style="justify-content:center;">From the field</span>
+        <h1>Gallery</h1>
+        <p style="max-width:56ch;margin:0 auto;">Moments captured across GIVE-AID programmes, shared by our associated NGOs and volunteers.</p>
+    </div>
+
+    <div class="gallery-filters" data-filter-group style="justify-content:center;">
+        <div class="chip active" data-filter="all">All</div>
+        @foreach (var cat in categories)
+        {
+            <div class="chip" data-filter="@cat">@cat</div>
+        }
+    </div>
+
+    <div class="grid gallery-grid">
+        @foreach (var item in Model)
+        {
+            <div class="gallery-item" data-gallery-item data-category="@item.Category">
+                <img src="@item.Image" alt="@item.Title">
+                <div class="overlay">@item.Title</div>
+            </div>
+        }
+        @if (!Model.Any())
+        {
+            <p class="text-muted">No photos yet.</p>
+        }
+    </div>
+</section>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('[data-filter-group] .chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                document.querySelectorAll('[data-filter-group] .chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                var filter = chip.getAttribute('data-filter');
+                document.querySelectorAll('.gallery-grid [data-gallery-item]').forEach(item => {
+                    var show = filter === 'all' || item.getAttribute('data-category') === filter;
+                    item.style.display = show ? '' : 'none';
+                });
+            });
+        });
+    </script>
+}

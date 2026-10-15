@@ -1,0 +1,105 @@
+﻿@model Give_Aid.Models.AboutPageViewModel
+
+@{
+    ViewData["Title"] = "About Us";
+    Layout = "_clientlayout";
+
+    var whatWeDo = Model.Sections.FirstOrDefault(s => s.SectionKey == "what-we-do");
+    var mission = Model.Sections.FirstOrDefault(s => s.SectionKey == "mission");
+}
+
+<section class="section container">
+    <div class="text-center" style="margin-bottom:8px;">
+        <span class="eyebrow" style="justify-content:center;">Our story</span>
+        <h1>About GIVE-AID</h1>
+        <p style="max-width:60ch;margin:0 auto;">GIVE-AID is a network connecting donors with a community of associated NGOs — pooling resources, transparency and reach so help arrives faster and goes further.</p>
+    </div>
+</section>
+
+<section class="container" style="margin-bottom:48px;">
+    <div class="gallery-filters" style="justify-content:center;">
+        <a href="#what-we-do" class="chip">What We Do</a>
+        <a href="#mission" class="chip">Our Mission</a>
+        <a href="#team" class="chip">Our Team</a>
+        <a href="#careers" class="chip">Careers</a>
+        <a href="#achievements" class="chip">Achievements</a>
+        <a href="#supporters" class="chip">Supporters</a>
+    </div>
+</section>
+
+@if (whatWeDo != null)
+{
+    <section class="section container" id="what-we-do" style="padding-top:0;">
+        <div class="grid" style="grid-template-columns:1fr 1fr;align-items:center;">
+            <div>
+                <span class="eyebrow">What we do</span>
+                @Html.Raw(whatWeDo.Content)
+                <div class="grid" style="grid-template-columns:1fr 1fr;gap:16px;margin-top:20px;">
+                    <div class="card"><i class="fa-solid fa-building-columns" style="color:var(--banyan-700);font-size:20px;"></i><h4 style="margin:10px 0 4px;font-size:15px;">128 NGOs</h4><p style="font-size:13px;margin:0;">Vetted and onboarded</p></div>
+                    <div class="card"><i class="fa-solid fa-map-location-dot" style="color:var(--banyan-700);font-size:20px;"></i><h4 style="margin:10px 0 4px;font-size:15px;">14 Cities</h4><p style="font-size:13px;margin:0;">Active operations</p></div>
+                </div>
+            </div>
+            <img src="https://images.unsplash.com/photo-1593113646773-028c64a8f1b8?w=700&q=80" style="border-radius:var(--radius-lg);" alt="Team meeting">
+        </div>
+    </section>
+}
+
+@if (mission != null)
+{
+    <section class="section" style="background:var(--banyan-50);" id="mission">
+        <div class="container grid" style="grid-template-columns:1fr 1fr;align-items:center;">
+            <img src="https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=700&q=80" style="border-radius:var(--radius-lg);order:2;" alt="Volunteers">
+            <div style="order:1;">
+                <span class="eyebrow">Our mission</span>
+                @Html.Raw(mission.Content)
+            </div>
+        </div>
+    </section>
+}
+
+<section class="section container" id="team">
+    <div class="section-head"><div><span class="eyebrow">Our team</span><h2>The people behind GIVE-AID</h2></div></div>
+    <div class="grid" style="grid-template-columns:repeat(4,1fr);">
+        @foreach (var member in Model.TeamMembers)
+        {
+            <div class="card text-center">
+                <img src="@member.PhotoUrl" style="width:84px;height:84px;border-radius:50%;margin:0 auto 12px;object-fit:cover;">
+                <h4 style="font-size:15px;margin-bottom:2px;">@member.Name</h4>
+                <p style="font-size:13px;color:var(--ink-500);margin:0;">@member.Role</p>
+            </div>
+        }
+    </div>
+</section>
+
+<section class="section" style="background:var(--banyan-50);" id="careers">
+    <div class="container">
+        <div class="section-head"><div><span class="eyebrow">Careers</span><h2>Career with Us</h2><p>We're a small, growing team — open roles are posted here as they come up.</p></div></div>
+        <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+            <div class="card"><span class="badge badge-info" style="margin-bottom:8px;">Full-time</span><h4>Programmes Coordinator</h4><p style="font-size:13.5px;">Karachi, Pakistan</p><a asp-controller="Contact" asp-action="Index" class="btn btn-outline btn-sm">Apply Now</a></div>
+            <div class="card"><span class="badge badge-info" style="margin-bottom:8px;">Contract</span><h4>Grant Writer</h4><p style="font-size:13.5px;">Remote</p><a asp-controller="Contact" asp-action="Index" class="btn btn-outline btn-sm">Apply Now</a></div>
+            <div class="card"><span class="badge badge-info" style="margin-bottom:8px;">Volunteer</span><h4>Field Photographer</h4><p style="font-size:13.5px;">Multiple cities</p><a asp-controller="Contact" asp-action="Index" class="btn btn-outline btn-sm">Apply Now</a></div>
+        </div>
+    </div>
+</section>
+
+<section class="section container" id="achievements">
+    <div class="section-head"><div><span class="eyebrow">Achievements</span><h2>Milestones so far</h2></div></div>
+    <div class="grid stats-grid" style="grid-template-columns:repeat(4,1fr);">
+        <div class="card text-center"><div style="font-family:var(--font-display);font-size:26px;color:var(--banyan-700);font-weight:700;">2018</div><div class="text-muted" style="font-size:13px;">Founded</div></div>
+        <div class="card text-center"><div style="font-family:var(--font-display);font-size:26px;color:var(--banyan-700);font-weight:700;">310</div><div class="text-muted" style="font-size:13px;">Programmes run</div></div>
+        <div class="card text-center"><div style="font-family:var(--font-display);font-size:26px;color:var(--banyan-700);font-weight:700;">Rs 86M+</div><div class="text-muted" style="font-size:13px;">Funds distributed</div></div>
+        <div class="card text-center"><div style="font-family:var(--font-display);font-size:26px;color:var(--banyan-700);font-weight:700;">42,600+</div><div class="text-muted" style="font-size:13px;">Lives touched</div></div>
+    </div>
+</section>
+
+<section class="section" style="background:var(--banyan-50);" id="supporters">
+    <div class="container">
+        <div class="section-head"><div><span class="eyebrow">Supporters</span><h2>Our Supporters</h2></div></div>
+        <div class="card partners-strip">
+            <img src="https://dummyimage.com/140x40/1F5D50/ffffff.png&text=Northline+Corp" alt="Northline+Corp">
+            <img src="https://dummyimage.com/140x40/1F5D50/ffffff.png&text=Sadaqat+Trust" alt="Sadaqat+Trust">
+            <img src="https://dummyimage.com/140x40/1F5D50/ffffff.png&text=Meridian+Bank" alt="Meridian+Bank">
+            <img src="https://dummyimage.com/140x40/1F5D50/ffffff.png&text=Bright+Future" alt="Bright+Future">
+        </div>
+    </div>
+</section>

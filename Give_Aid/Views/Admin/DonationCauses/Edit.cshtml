@@ -1,0 +1,54 @@
+@model Give_Aid.Models.DonationCause
+@{
+    ViewData["Title"] = "Edit Donation Cause";
+    Layout = "_adminlayout";
+}
+
+<div class="page-head"><div><h1>Edit Donation Cause</h1></div></div>
+
+@* <div style="background:yellow;padding:10px;font-family:monospace;">
+    DEBUG — Model.Cause = "@Model.Cause" (length: @(Model.Cause?.Length ?? -1))
+</div> *@
+
+<div class="card">
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Raised" />
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="field">
+            <label>Cause Name<span class="req">*</span></label>
+            <input class="input" asp-for="Cause" />
+            <span asp-validation-for="Cause" class="error-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Icon</label>
+            <input class="input" asp-for="Icon" />
+            <span asp-validation-for="Icon" class="error-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Description</label>
+            <textarea class="input" asp-for="Description" rows="3"></textarea>
+            <span asp-validation-for="Description" class="error-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Fundraising Goal (Rs)</label>
+            <input class="input" asp-for="Goal" type="number" />
+            <span asp-validation-for="Goal" class="error-msg"></span>
+        </div>
+
+        <div class="field">
+            <label>Status</label>
+            <select class="input" asp-for="Status">
+                <option>Active</option>
+                <option>Inactive</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+        <a asp-action="Index" class="btn btn-outline btn-sm">Cancel</a>
+    </form>
+</div>

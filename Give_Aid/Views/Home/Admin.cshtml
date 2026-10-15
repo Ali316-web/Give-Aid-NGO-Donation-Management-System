@@ -1,0 +1,165 @@
+﻿@model Give_Aid.Models.AdminDashboardViewModel
+@using System.Text.Json
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_adminlayout.cshtml";
+
+    // admin.js reads d.label / d.value / d.color (lowercase) from the parsed
+    // JSON. System.Text.Json outputs C# property names as-is (PascalCase) by
+    // default, which is why the charts showed "undefined" and "NaN" — the
+    // keys genuinely didn't match. This options object fixes that.
+    var jsonOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+
+    string DeltaBadge(double percent)
+    {
+        var cls = percent >= 0 ? "up" : "down";
+        var icon = percent >= 0 ? "fa-arrow-up" : "fa-arrow-down";
+        return $"<span class=\"kpi-delta {cls}\"><i class=\"fa-solid {icon}\"></i> {Math.Abs(percent):0.#}%</span>";
+    }
+
+    // Picks Rs/K/M automatically so small test amounts don't just silently
+    // round down to "0" the way a fixed "always show millions" format does.
+    string FormatAmount(decimal amount)
+    {
+        if (amount >= 1_000_000m)
+        {
+            return $"Rs {(amount / 1_000_000m).ToString("0.#")}M";
+        }
+        if (amount >= 1_000m)
+        {
+            return $"Rs {(amount / 1_000m).ToString("0.#")}K";
+        }
+        return $"Rs {amount.ToString("N0")}";
+    }
+}
+
+<div class="breadcrumb" style="margin-bottom:14px;"><a asp-controller="Home" asp-action="Admin">Admin</a><span class="sep">/</span><span class="current">Dashboard</span></div>
+<div class="page-head">
+    <div>
+        <h1>Dashboard</h1>
+        <p class="text-muted" style="margin:0;max-width:56ch;">Welcome back, here's what's happening across GIVE-AID today.</p>
+    </div>
+    <div class="flex gap-2">
+        <a asp-controller="Donations" asp-action="Index" class="btn btn-outline btn-sm">View Donations</a>
+        <a asp-controller="Programmers" asp-action="Create" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Add Programme</a>
+    </div>
+</div>
+
+<div class="grid kpi-grid" style="margin-bottom:20px;">
+    <div class="card kpi-card">
+        <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--banyan-100);color:var(--banyan-700);"><i class="fa-solid fa-users"></i></div>
+            @Html.Raw(DeltaBadge(Model.MembersDeltaPercent))
+        </div>
+        <div class="kpi-value">@Model.TotalMembers.ToString("N0")</div>
+        <div class="kpi-label">Total Members</div>
+    </div>
+    <div class="card kpi-card">
+        <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--marigold-100);color:var(--marigold-600);"><i class="fa-solid fa-hand-holding-dollar"></i></div>
+            @Html.Raw(DeltaBadge(Model.DonationsCountDeltaPercent))
+        </div>
+        <div class="kpi-value">@Model.TotalDonationsCount.ToString("N0")</div>
+        <div class="kpi-label">Total Donations</div>
+    </div>
+    <div class="card kpi-card">
+        <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--success-100);color:var(--success-600);"><i class="fa-solid fa-sack-dollar"></i></div>
+            @Html.Raw(DeltaBadge(Model.DonationAmountDeltaPercent))
+        </div>
+        <div class="kpi-value">@FormatAmount(Model.TotalDonationAmount)</div>
+        <div class="kpi-label">Total Donation Amount</div>
+    </div>
+    <div class="card kpi-card">
+        <div class="kpi-top">
+            <div class="kpi-icon" style="background:var(--coral-100);color:var(--coral-600);"><i class="fa-solid fa-comments"></i></div>
+        </div>
+        <div class="kpi-value">@Model.PendingQueries</div>
+        <div class="kpi-label">Pending Queries</div>
+    </div>
+</div>
+
+<div class="grid kpi-grid" style="margin-bottom:28px;">
+    <div class="card kpi-card">
+        <div class="kpi-top"><div class="kpi-icon" style="background:var(--info-100);color:var(--info-600);"><i class="fa-solid fa-building-columns"></i></div></div>
+        <div class="kpi-value">@Model.TotalNGOs</div>
+        <div class="kpi-label">Total NGOs</div>
+    </div>
+    <div class="card kpi-card">
+        <div class="kpi-top"><div class="kpi-icon" style="background:var(--banyan-100);color:var(--banyan-700);"><i class="fa-solid fa-handshake"></i></div></div>
+        <div class="kpi-value">@Model.TotalPartners</div>
+        <div class="kpi-label">Total Partners</div>
+    </div>
+    <div class="card kpi-card">
+        <div class="kpi-top"><div class="kpi-icon" style="background:var(--marigold-100);color:var(--marigold-600);"><i class="fa-solid fa-calendar-days"></i></div></div>
+        <div class="kpi-value">@Model.TotalProgrammes</div>
+        <div class="kpi-label">Total Programmes</div>
+    </div>
+    <div class="card kpi-card">
+        <div class="kpi-top"><div class="kpi-icon" style="background:var(--success-100);color:var(--success-600);"><i class="fa-solid fa-clock"></i></div></div>
+        <div class="kpi-value">@Model.UpcomingProgrammes</div>
+        <div class="kpi-label">Upcoming Programmes</div>
+    </div>
+</div>
+
+<div class="grid dash-grid-2" style="margin-bottom:28px;">
+    <div class="card chart-panel">
+        <div class="chart-head">
+            <div><h3>Donations by Month</h3><p class="text-muted" style="margin:0;font-size:12.5px;">Amount in Rs (millions)</p></div>
+        </div>
+        <div data-bar-chart='@Html.Raw(JsonSerializer.Serialize(Model.DonationsByMonth, jsonOptions))'></div>
+    </div>
+    <div class="card chart-panel">
+        <div class="chart-head"><div><h3>Donations by Cause</h3><p class="text-muted" style="margin:0;font-size:12.5px;">Share of total this quarter</p></div></div>
+        @if (Model.DonationsByCause.Any())
+        {
+            <div data-donut-chart='@Html.Raw(JsonSerializer.Serialize(Model.DonationsByCause, jsonOptions))'></div>
+        }
+        else
+        {
+            <p class="text-muted">No completed donations this quarter yet.</p>
+        }
+    </div>
+</div>
+
+<div class="grid dash-grid-2" style="margin-bottom:28px;">
+    <div class="card chart-panel">
+        <div class="chart-head"><div><h3>Programme Participation</h3><p class="text-muted" style="margin:0;font-size:12.5px;">Interested volunteers per programme</p></div></div>
+        @if (Model.ProgrammeParticipation.Any())
+        {
+            <div data-bar-chart='@Html.Raw(JsonSerializer.Serialize(Model.ProgrammeParticipation, jsonOptions))'></div>
+        }
+        else
+        {
+            <p class="text-muted">No registered interest yet.</p>
+        }
+    </div>
+    <div class="card chart-panel">
+        <div class="chart-head"><div><h3>Member Registration</h3><p class="text-muted" style="margin:0;font-size:12.5px;">New signups per month</p></div></div>
+        <div data-bar-chart='@Html.Raw(JsonSerializer.Serialize(Model.MemberRegistrationByMonth, jsonOptions))'></div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="chart-head"><h3>Recent Activity</h3></div>
+    <div class="table-wrap" style="border:none;">
+        <table class="data-table">
+            <thead><tr><th>Activity</th><th>User</th><th>Date</th><th>Status</th></tr></thead>
+            <tbody>
+                @foreach (var item in Model.RecentActivity)
+                {
+                    <tr>
+                        <td><i class="@item.Icon" style="color:var(--banyan-700);"></i> &nbsp;@item.Text</td>
+                        <td>@item.User</td>
+                        <td>@item.Date.ToString("MMM dd, yyyy · h:mm tt")</td>
+                        <td><span class="badge @item.BadgeClass">@item.BadgeText</span></td>
+                    </tr>
+                }
+                @if (!Model.RecentActivity.Any())
+                {
+                    <tr><td colspan="4" class="text-muted text-center">No recent activity yet.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

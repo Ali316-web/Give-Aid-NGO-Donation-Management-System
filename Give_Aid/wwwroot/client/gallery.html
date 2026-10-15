@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery · GIVE-AID</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="../../assets/css/design-system.css">
+<link rel="stylesheet" href="../../assets/css/public.css">
+
+</head>
+<body>
+<!-- Views/Shared/_Navbar.cshtml -->
+<header class="site-header">
+  <div class="container bar">
+    <a href="index.html" class="brand"><svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="20" cy="20" r="20" fill="#1F5D50"/>
+<path d="M20 8c-1 3-3 4-3 7 0 2 1 3 3 3s3-1 3-3c0-3-2-4-3-7Z" fill="#F0A93C"/>
+<path d="M20 17v8M14 30c0-4 2-6 6-6s6 2 6 6M11 30h18M13 26c1-3 3-4 7-4M27 26c-1-3-3-4-7-4" stroke="#F0A93C" stroke-width="1.6" stroke-linecap="round"/>
+</svg><span>GIVE-AID</span></a>
+    <nav class="main-nav">
+      <ul><li><a href="index.html" class="">Home</a></li>
+<li><a href="donate.html" class="">Donate</a></li>
+<li><a href="programmes.html" class="">Programmes</a></li>
+<li><a href="help-centre.html" class="">Help Centre</a></li>
+<li><a href="about.html" class="">About Us</a></li>
+<li><a href="partners.html" class="">Our Partners</a></li></ul>
+    </nav>
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-ghost btn-sm">Log In</a>
+      <a href="register.html" class="btn btn-outline btn-sm">Register</a>
+      <a href="donate.html" class="btn btn-accent btn-sm"><i class="fa-solid fa-heart"></i> Donate Now</a>
+    </div>
+    <button class="nav-toggle" data-nav-toggle aria-label="Toggle menu"><i class="fa-solid fa-bars"></i></button>
+  </div>
+  <div class="mobile-nav" data-mobile-nav>
+    <ul><li><a href="index.html" class="">Home</a></li>
+<li><a href="donate.html" class="">Donate</a></li>
+<li><a href="programmes.html" class="">Programmes</a></li>
+<li><a href="help-centre.html" class="">Help Centre</a></li>
+<li><a href="about.html" class="">About Us</a></li>
+<li><a href="partners.html" class="">Our Partners</a></li>
+      <li><a href="ngos.html">Associated NGOs</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="dashboard.html">My Account</a></li>
+    </ul>
+    <div class="header-actions">
+      <a href="login.html" class="btn btn-outline btn-block">Log In</a>
+      <a href="register.html" class="btn btn-primary btn-block">Register</a>
+    </div>
+  </div>
+</header>
+
+<section class="section container">
+  <div class="text-center" style="margin-bottom:24px;">
+    <span class="eyebrow" style="justify-content:center;">From the field</span>
+    <h1>Gallery</h1>
+    <p style="max-width:56ch;margin:0 auto;">Moments captured across GIVE-AID programmes, shared by our associated NGOs and volunteers.</p>
+  </div>
+  <div class="gallery-filters" data-filter-group style="justify-content:center;">
+    <div class="chip active" data-filter="all">All</div>
+    <div class="chip" data-filter="Healthcare">Healthcare</div>
+    <div class="chip" data-filter="Education">Education</div>
+    <div class="chip" data-filter="Children Welfare">Children Welfare</div>
+    <div class="chip" data-filter="Women Welfare">Women Welfare</div>
+    <div class="chip" data-filter="Elderly Welfare">Elderly Welfare</div>
+  </div>
+  <div class="grid gallery-grid">
+    <div class="gallery-item" data-gallery-item data-category="Healthcare"><img src="https://images.unsplash.com/photo-1593113630400-ea4288922497?w=500&q=80" alt="Medical Camp — Lyari"><div class="overlay">Medical Camp — Lyari</div></div><div class="gallery-item" data-gallery-item data-category="Education"><img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=500&q=80" alt="School Drive — Hyderabad"><div class="overlay">School Drive — Hyderabad</div></div><div class="gallery-item" data-gallery-item data-category="Children Welfare"><img src="https://images.unsplash.com/photo-1541823709867-1b206113eafd?w=500&q=80" alt="Food Distribution"><div class="overlay">Food Distribution</div></div><div class="gallery-item" data-gallery-item data-category="Education"><img src="https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?w=500&q=80" alt="Volunteer Orientation"><div class="overlay">Volunteer Orientation</div></div><div class="gallery-item" data-gallery-item data-category="Healthcare"><img src="https://images.unsplash.com/photo-1584515933487-779824d29309?w=500&q=80" alt="Blood Donation Drive"><div class="overlay">Blood Donation Drive</div></div><div class="gallery-item" data-gallery-item data-category="Women Welfare"><img src="https://images.unsplash.com/photo-1573497161161-c3e73707e25c?w=500&q=80" alt="Stitching Workshop"><div class="overlay">Stitching Workshop</div></div><div class="gallery-item" data-gallery-item data-category="Elderly Welfare"><img src="https://images.unsplash.com/photo-1447069387593-a5de0862481e?w=500&q=80" alt="Senior Companion Visit"><div class="overlay">Senior Companion Visit</div></div><div class="gallery-item" data-gallery-item data-category="Children Welfare"><img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500&q=80" alt="Shelter Build — Larkana"><div class="overlay">Shelter Build — Larkana</div></div>
+  </div>
+</section>
+<!-- Views/Shared/_Footer.cshtml -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="grid footer-grid">
+      <div>
+        <div class="brand"><svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="20" cy="20" r="20" fill="#1F5D50"/>
+<path d="M20 8c-1 3-3 4-3 7 0 2 1 3 3 3s3-1 3-3c0-3-2-4-3-7Z" fill="#F0A93C"/>
+<path d="M20 17v8M14 30c0-4 2-6 6-6s6 2 6 6M11 30h18M13 26c1-3 3-4 7-4M27 26c-1-3-3-4-7-4" stroke="#F0A93C" stroke-width="1.6" stroke-linecap="round"/>
+</svg><span>GIVE-AID</span></div>
+        <p style="color:rgba(255,255,255,.7);font-size:14px;max-width:34ch;">A community of associated NGOs working across welfare, education and healthcare — rooted locally, growing together.</p>
+        <div class="social-row">
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+        </div>
+      </div>
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="programmes.html">Programmes</a></li>
+          <li><a href="ngos.html">Associated NGOs</a></li>
+          <li><a href="partners.html">Our Partners</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get Involved</h4>
+        <ul>
+          <li><a href="donate.html">Donate Now</a></li>
+          <li><a href="register.html">Become a Member</a></li>
+          <li><a href="invite-friends.html">Invite Friends</a></li>
+          <li><a href="help-centre.html">Help Centre</a></li>
+          <li><a href="query.html">Raise a Query</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><i class="fa-solid fa-location-dot"></i> &nbsp;12 Banyan Road, Karachi, Pakistan</li>
+          <li><i class="fa-solid fa-phone"></i> &nbsp;+92 21 3456 7890</li>
+          <li><i class="fa-solid fa-envelope"></i> &nbsp;hello@giveaid.org</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 GIVE-AID Foundation. All rights reserved.</span>
+      <span>Privacy Policy &nbsp;·&nbsp; Terms of Service</span>
+    </div>
+  </div>
+</footer>
+<script src="../../assets/js/main.js"></script>
+
+</body>
+</html>

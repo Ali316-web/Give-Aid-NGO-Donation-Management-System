@@ -1,0 +1,79 @@
+﻿@model List<Give_Aid.Models.AdminUserViewModel>
+
+@{
+    ViewData["Title"] = "Users / Admins";
+    Layout = "_adminlayout";
+}
+
+<div class="breadcrumb" style="margin-bottom:14px;">
+    <a asp-controller="Home" asp-action="Admin">Admin</a><span class="sep">/</span><span class="current">Users / Admins</span>
+</div>
+
+<div class="page-head">
+    <div>
+        <h1>Users &amp; Admins</h1>
+        <p class="text-muted" style="margin:0;max-width:56ch;">Everyone registered on Give-Aid, and who currently has Admin access.</p>
+    </div>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" style="margin-bottom:16px;">@TempData["Message"]</div>
+}
+
+<div class="card">
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Email Confirmed</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Email</td>
+                        <td>
+                            @if (user.EmailConfirmed)
+                            {
+                                <span class="badge badge-success">Confirmed</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-neutral">Unconfirmed</span>
+                            }
+                        </td>
+                        <td>
+                            @if (user.IsAdmin)
+                            {
+                                <span class="badge badge-success">Admin</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-neutral">User</span>
+                            }
+                        </td>
+                        <td class="row-actions">
+                            <form asp-action="ToggleAdmin" asp-route-id="@user.Id" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-outline btn-sm">
+                                    @(user.IsAdmin ? "Remove Admin" : "Make Admin")
+                                </button>
+                            </form>
+                            <a asp-action="Delete" asp-route-id="@user.Id" class="icon-btn danger" title="Delete">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="4" class="text-muted text-center">No registered users yet.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

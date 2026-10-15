@@ -1,0 +1,25 @@
+﻿@model Give_Aid.Models.Donation
+
+@{
+    ViewData["Title"] = "Donation Confirmation";
+    Layout = "_clientlayout";
+}
+
+<section class="section container" style="max-width:560px;">
+    <div class="card text-center" style="padding:44px 32px;">
+        <div class="modal-icon success" style="margin:0 auto 18px;"><i class="fa-solid fa-check"></i></div>
+        <h2>Thank you, @Model.DonorName!</h2>
+        <p style="max-width:38ch;margin:0 auto 24px;">Your donation has been received and will be forwarded to the associated NGO running this cause.</p>
+        <div class="detail-list" style="text-align:left;margin-bottom:24px;">
+            <div class="detail-row"><span class="k">Donation Status</span><span class="badge badge-success">@Model.PaymentStatus</span></div>
+            <div class="detail-row"><span class="k">Amount</span><span class="v">Rs @Model.Amount.ToString("N0")</span></div>
+            <div class="detail-row"><span class="k">Cause</span><span class="v">@Model.DonationCause?.Cause</span></div>
+            <div class="detail-row"><span class="k">Payment Method</span><span class="v">@Model.PaymentMethod •• @Model.CardLast4</span></div>
+            <div class="detail-row"><span class="k">Reference Number</span><span class="v">@Model.TransactionId</span></div>
+            <div class="detail-row"><span class="k">Date</span><span class="v">@Model.DonationDate.ToString("MMM dd, yyyy · h:mm tt")</span></div>
+        </div>
+        <div class="flex gap-3">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-block">Back to Home</a>
+        </div>
+    </div>
+</section>

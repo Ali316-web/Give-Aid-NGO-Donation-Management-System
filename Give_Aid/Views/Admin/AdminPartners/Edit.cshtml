@@ -1,0 +1,38 @@
+@model Give_Aid.Models.Partners
+
+@{
+    ViewData["Title"] = "Edit Partner";
+    Layout = "_adminlayout";
+}
+
+<div class="page-head">
+    <div><h1>Edit Partner</h1></div>
+</div>
+
+<div class="card">
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-grid">
+            <div class="field"><label>Partner Name<span class="req">*</span></label><input class="input" asp-for="OrganizationName" /></div>
+            <div class="field"><label>Type<span class="req">*</span></label><input class="input" asp-for="OrganizationType" /></div>
+        </div>
+
+        <div class="field"><label>Website</label><input class="input" asp-for="Website" /></div>
+        <div class="field"><label>Description</label><textarea class="input" asp-for="Description" rows="3"></textarea></div>
+        <div class="field"><label>Contact Email</label><input class="input" asp-for="ContactEmail" /></div>
+        <div class="field"><label>Logo URL</label><input class="input" asp-for="LogoUrl" /></div>
+
+        <div class="field">
+            <label>Status</label>
+            <select class="input" asp-for="Status">
+                <option>Active</option>
+                <option>Inactive</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+        <a asp-action="Index" class="btn btn-outline btn-sm">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,94 @@
+﻿@model Give_Aid.Models.QueryFormViewModel
+
+@{
+    ViewData["Title"] = "Raise a Query";
+    Layout = "_clientlayout";
+}
+
+<section class="section container">
+    <div class="section-head">
+        <div>
+            <span class="eyebrow">Support</span>
+            <h1>Raise a Query</h1>
+            <p>Let us know what's going on — our team replies within 48 hours.</p>
+        </div>
+    </div>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success" style="margin-bottom:16px;">@TempData["Message"]</div>
+    }
+
+    <div class="grid" style="grid-template-columns:0.9fr 1.1fr;align-items:start;">
+        <div class="card">
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="Name" />
+                <input type="hidden" asp-for="Email" />
+                <input type="hidden" asp-for="Phone" />
+
+                <div class="field">
+                    <label>Query Category<span class="req">*</span></label>
+                    <select class="input" asp-for="Category">
+                        <option value="">Select category</option>
+                        <option>Donation Issue</option>
+                        <option>Registration / Account</option>
+                        <option>Programme Participation</option>
+                        <option>Technical Issue</option>
+                        <option>Other</option>
+                    </select>
+                    <span asp-validation-for="Category" class="error-msg"></span>
+                </div>
+
+                <div class="field">
+                    <label>Subject<span class="req">*</span></label>
+                    <input class="input" asp-for="Subject" placeholder="Brief summary" />
+                    <span asp-validation-for="Subject" class="error-msg"></span>
+                </div>
+
+                <div class="field">
+                    <label>Message<span class="req">*</span></label>
+                    <textarea class="input" asp-for="Message" rows="5" placeholder="Describe your query in detail…"></textarea>
+                    <span asp-validation-for="Message" class="error-msg"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Submit Query</button>
+            </form>
+        </div>
+
+        <div>
+            <h3 style="font-size:16px;margin-bottom:14px;">Your Query History</h3>
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead><tr><th>ID</th><th>Subject</th><th>Date</th><th>Status</th><th></th></tr></thead>
+                    <tbody>
+                        @foreach (var q in Model.MyQueries)
+                        {
+                            var badgeClass = q.Status switch
+                            {
+                                "Replied" => "badge-success",
+                                "In Progress" => "badge-warning",
+                                "Closed" => "badge-neutral",
+                                _ => "badge-danger"
+                            };
+                            <tr>
+                                <td>#Q-@q.Id.ToString("D4")</td>
+                                <td>@q.Subject</td>
+                                <td>@q.SubmittedDate.ToString("MMM dd, yyyy")</td>
+                                <td><span class="badge @badgeClass">@q.Status</span></td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@q.Id" style="font-size:13px;font-weight:700;color:var(--banyan-700);">View</a>
+                                </td>
+                            </tr>
+                        }
+                        @if (!Model.MyQueries.Any())
+                        {
+                            <tr><td colspan="5" class="text-muted text-center">You haven't raised any queries yet.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>

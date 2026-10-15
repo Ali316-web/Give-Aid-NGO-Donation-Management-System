@@ -1,0 +1,108 @@
+﻿@model Give_Aid.Models.Members
+
+@{
+    ViewData["Title"] = "Member Details";
+    Layout = "_adminlayout";
+}
+
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1>Member Details</h1>
+            <p class="text-muted">
+                View member information.
+            </p>
+        </div>
+
+        <div>
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="fa-solid fa-arrow-left"></i>
+                Back to Members
+            </a>
+
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="btn btn-warning">
+                <i class="fa-solid fa-pen"></i>
+                Edit
+            </a>
+        </div>
+    </div>
+
+    <div class="card shadow-sm">
+
+        <div class="card-header">
+            <h4 class="mb-0">
+                Member Information
+            </h4>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row mb-3">
+
+                <div class="col-md-6">
+                    <strong>Member ID</strong>
+                    <p>@Model.Id</p>
+                </div>
+
+                <div class="col-md-6">
+                    <strong>Full Name</strong>
+                    <p>@Model.FullName</p>
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-6">
+                    <strong>Email</strong>
+                    <p>@Model.Email</p>
+                </div>
+
+                <div class="col-md-6">
+                    <strong>Phone</strong>
+                    <p>@Model.Phone</p>
+                </div>
+
+            </div>
+
+            <div class="row mb-3">
+            </div>
+
+            <div class="row mb-3">
+
+                <div class="col-md-6">
+                    <strong>Status</strong>
+
+                    <p>
+                        @if (Model.Status == "Active")
+                        {
+                            <span class="badge bg-success">
+                                Active
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">
+                                @Model.Status
+                            </span>
+                        }
+                    </p>
+                </div>
+
+                <div class="col-md-6">
+                    <strong>Joined Date</strong>
+                    <p>
+                        @Model.JoinedDate.ToString("dd MMMM yyyy")
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

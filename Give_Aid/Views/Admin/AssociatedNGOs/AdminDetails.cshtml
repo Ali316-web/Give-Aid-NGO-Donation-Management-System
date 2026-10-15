@@ -1,0 +1,41 @@
+﻿@model Give_Aid.Models.AssociatedNGOs
+
+@{
+    ViewData["Title"] = "NGO Details";
+    Layout = "_adminlayout";
+}
+
+<div class="page-head">
+    <div><h1>@Model.NGOName</h1></div>
+</div>
+
+<div class="card">
+    <dl class="row">
+        <dt class="col-sm-3">Location</dt>
+        <dd class="col-sm-9">@Model.Location</dd>
+
+        <dt class="col-sm-3">Focus Area</dt>
+        <dd class="col-sm-9">@Model.FocusArea</dd>
+
+        <dt class="col-sm-3">Email</dt>
+        <dd class="col-sm-9">@(Model.Email ?? "—")</dd>
+
+        <dt class="col-sm-3">Phone</dt>
+        <dd class="col-sm-9">@(Model.Phone ?? "—")</dd>
+
+        <dt class="col-sm-3">Website</dt>
+        <dd class="col-sm-9">@(Model.Website ?? "—")</dd>
+
+        <dt class="col-sm-3">Address</dt>
+        <dd class="col-sm-9">@(Model.Address ?? "—")</dd>
+
+        <dt class="col-sm-3">Description</dt>
+        <dd class="col-sm-9">@(Model.Description ?? "—")</dd>
+
+        <dt class="col-sm-3">Status</dt>
+        <dd class="col-sm-9">@Model.Status</dd>
+    </dl>
+
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary btn-sm">Edit</a>
+    <a asp-action="AdminIndex" class="btn btn-outline btn-sm">Back to NGOs</a>
+</div>

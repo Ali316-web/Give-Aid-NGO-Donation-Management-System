@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Give_Aid.Models.ProgrammeParticipant>
+@{
+    var programme = ViewBag.Programme as Give_Aid.Models.Programmers;
+    ViewData["Title"] = "Programme Participants";
+    Layout = "_adminlayout";
+}
+
+<div class="breadcrumb" style="margin-bottom:14px;">
+    <a asp-controller="Home" asp-action="Admin">Admin</a><span class="sep">/</span>
+    <a asp-action="AdminIndex">Programmes</a><span class="sep">/</span>
+    <span class="current">Participants</span>
+</div>
+
+<div class="page-head">
+    <div>
+        <h1>Programme Participants</h1>
+        <p class="text-muted" style="margin:0;max-width:56ch;">
+            @programme?.Programme — @programme?.Location · @programme?.ProgrammeDate.ToString("MMM dd, yyyy")
+        </p>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr><th>Name</th><th>Email</th><th>Status</th><th>Registered On</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var badgeClass = item.Status == "Confirmed" ? "badge-success" : "badge-info";
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Email</td>
+                        <td><span class="badge @badgeClass">@item.Status</span></td>
+                        <td>@item.RegisteredDate.ToString("MMM dd, yyyy")</td>
+                        <td class="row-actions">
+                            <a href="mailto:@item.Email" class="icon-btn" title="Contact"><i class="fa-regular fa-envelope"></i></a>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="5" class="text-muted text-center">No one has registered interest yet.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

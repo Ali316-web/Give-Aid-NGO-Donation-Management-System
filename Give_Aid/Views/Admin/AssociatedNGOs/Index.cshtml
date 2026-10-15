@@ -1,0 +1,38 @@
+@model IEnumerable<Give_Aid.Models.AssociatedNGOs>
+
+@{
+    ViewData["Title"] = "Associated NGOs";
+    Layout = "_clientlayout";
+}
+
+<section class="section container">
+    <div class="text-center" style="margin-bottom:28px;">
+        <span class="eyebrow" style="justify-content:center;">The network</span>
+        <h1>Associated NGOs</h1>
+        <p style="max-width:56ch;margin:0 auto;">GIVE-AID works alongside vetted NGOs across Pakistan. Here are some of our active partners on the ground.</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);">
+        @foreach (var ngo in Model)
+        {
+            <div class="card card-hover" style="padding:0;overflow:hidden;">
+                @if (!string.IsNullOrWhiteSpace(ngo.LogoUrl))
+                {
+                    <img src="@ngo.LogoUrl" style="width:100%;aspect-ratio:16/10;object-fit:cover;" alt="@ngo.NGOName" />
+                }
+                <div style="padding:20px;">
+                    <h3 style="font-size:17px;">@ngo.NGOName</h3>
+                    <p style="font-size:13.5px;">
+                        <i class="fa-solid fa-location-dot" style="color:var(--banyan-600);"></i>
+                        @ngo.Location &nbsp;·&nbsp; @ngo.FocusArea
+                    </p>
+                    <a asp-action="Details" asp-route-id="@ngo.Id" class="btn btn-outline btn-sm">View Details</a>
+                </div>
+            </div>
+        }
+        @if (!Model.Any())
+        {
+            <p class="text-muted">No NGOs to show yet.</p>
+        }
+    </div>
+</section>

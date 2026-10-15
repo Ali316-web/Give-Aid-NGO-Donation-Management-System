@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] · GIVE-AID Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="~/admin/assets/css/design-system.css">
+    <link rel="stylesheet" href="~/admin/assets/css/admin.css">
+</head>
+<body class="admin-body">
+    <div class="admin-shell">
+        <!-- Views/Shared/_AdminSidebar.cshtml -->
+        <aside class="admin-sidebar">
+            <a href="admin-dashboard.html" class="side-brand">
+                <svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="20" cy="20" r="20" fill="#1F5D50" />
+                    <path d="M20 8c-1 3-3 4-3 7 0 2 1 3 3 3s3-1 3-3c0-3-2-4-3-7Z" fill="#F0A93C" />
+                    <path d="M20 17v8M14 30c0-4 2-6 6-6s6 2 6 6M11 30h18M13 26c1-3 3-4 7-4M27 26c-1-3-3-4-7-4" stroke="#F0A93C" stroke-width="1.6" stroke-linecap="round" />
+                </svg><span class="label">GIVE-AID Admin</span>
+            </a>
+            <nav class="side-nav">
+                <div class="side-group">
+                    <div class="group-title">Dashboard</div><a asp-controller="Home" asp-action="Admin" class="side-link active"><i class="fa-solid fa-gauge-high"></i><span class="text">Overview</span></a>
+                </div>
+                <div class="side-group">
+                    <div class="group-title">Donations</div><a asp-controller="Donations" asp-action="Index" class="side-link"><i class="fa-solid fa-hand-holding-dollar"></i><span class="text">All Donations</span></a>
+                    <a asp-controller="DonationCauses" asp-action="Index" class="side-link"><i class="fa-solid fa-layer-group"></i><span class="text">Donation Causes</span></a>
+                </div>
+                <div class="side-group">
+                    <div class="group-title">Community</div><a asp-controller="Members" asp-action="Index" class="side-link"><i class="fa-solid fa-users"></i><span class="text">Members</span></a>
+                    <a asp-controller="Adminpartners" asp-action="Index" class="side-link"><i class="fa-solid fa-handshake"></i><span class="text">Partners</span></a>
+                    <a asp-controller="AssociatedNGOs" asp-action="AdminIndex" class="side-link"><i class="fa-solid fa-building-columns"></i><span class="text">Associated NGOs</span></a>
+                </div>
+                <div class="side-group">
+                    <div class="group-title">Engagement</div><a asp-controller="Programmers" asp-action="Adminindex" class="side-link"><i class="fa-solid fa-calendar-days"></i><span class="text">Programmes</span></a>
+                    <a asp-controller="Galleries" asp-action="Adminindex" class="side-link"><i class="fa-solid fa-images"></i><span class="text">Gallery</span></a>
+                </div>
+                <div class="side-group">
+                    <div class="group-title">Content</div><a asp-controller="AdminAbout" asp-action="Index" class="side-link"><i class="fa-solid fa-file-lines"></i><span class="text">About Us Content</span></a>
+                    @* <a asp-controller="Help" asp-action="Index" class="side-link"><i class="fa-solid fa-circle-question"></i><span class="text">Help Centre</span></a> *@
+                </div>
+                <div class="side-group">
+                    <div class="group-title">Support</div><a asp-controller="Query" asp-action="Index" class="side-link"><i class="fa-solid fa-comments"></i><span class="text">Queries</span></a>
+                    <a asp-controller="AdminContacts" asp-action="Index" class="side-link"><i class="fa-solid fa-envelope-open-text"></i><span class="text">Contact Messages</span></a>
+                </div>
+                <div class="side-group">
+                    <div class="group-title">System</div><a asp-controller="Adminusers" asp-action="Index" class="side-link"><i class="fa-solid fa-user-shield"></i><span class="text">Users / Admins</span></a>
+                    @* <a href="admin-settings.html" class="side-link"><i class="fa-solid fa-gear"></i><span class="text">Settings</span></a> *@
+                </div>
+            </nav>
+            <div class="side-foot">
+                <form id="logoutFormAdmin" method="post" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button type="submit" class="side-link" style="background:none;border:none;width:100%;text-align:left;cursor:pointer;"><i class="fa-solid fa-right-from-bracket"></i><span class="text">Logout</span></button>
+                </form>
+            </div>
+        </aside>
+
+        <div>
+            <!-- Views/Shared/_AdminTopbar.cshtml -->
+            <div class="admin-topbar">
+                <div class="flex items-center gap-3">
+                    <button class="side-collapse-btn" data-collapse-toggle title="Collapse sidebar"><i class="fa-solid fa-bars"></i></button>
+                    <div class="search-box"><i class="fa-solid fa-magnifying-glass"></i><input class="input" placeholder="Search donors, programmes, queries…"></div>
+                </div>
+                <div class="topbar-right">
+                    <button class="icon-btn-round" title="Notifications" data-notif-toggle><i class="fa-regular fa-bell"></i><span class="dot-badge"></span></button>
+                    <a href="admin-messages.html" class="icon-btn-round" title="Messages"><i class="fa-regular fa-envelope"></i></a>
+                    <a href="admin-settings.html" class="admin-profile">
+                        <span class="avatar"><img src="https://i.pravatar.cc/64?img=47" alt=""></span>
+                        <span class="who">@User.Identity?.Name<br><span class="role">Admin</span></span>
+                    </a>
+                </div>
+            </div>
+
+            <main class="admin-main">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+    <script src="~/admin/assets/js/admin.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

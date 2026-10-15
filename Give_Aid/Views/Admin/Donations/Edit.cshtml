@@ -1,0 +1,58 @@
+@model Give_Aid.Models.Donation
+
+@{
+    ViewData["Title"] = "Edit Donation";
+    Layout = "_adminlayout";
+    var causes = ViewBag.Causes as List<Give_Aid.Models.DonationCause> ?? new();
+}
+
+<div class="page-head">
+    <div><h1>Edit Donation</h1></div>
+</div>
+
+<div class="card">
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="UserId" />
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="field"><label>Donor Name</label><input class="input" asp-for="DonorName" /></div>
+        <div class="field"><label>Donor Email</label><input class="input" asp-for="DonorEmail" /></div>
+        <div class="field"><label>Amount</label><input class="input" asp-for="Amount" type="number" /></div>
+
+        <div class="field">
+            <label>Cause</label>
+            <select class="input" asp-for="CauseId">
+                @foreach (var cause in causes)
+                {
+                    <option value="@cause.Id">@cause.Cause</option>
+                }
+            </select>
+        </div>
+
+        <div class="field"><label>Card Holder Name</label><input class="input" asp-for="CardHolderName" /></div>
+        <div class="field"><label>Card Last 4 Digits</label><input class="input" asp-for="CardLast4" maxlength="4" /></div>
+        <div class="field">
+            <label>Payment Method</label>
+            <select class="input" asp-for="PaymentMethod">
+                <option>Visa</option>
+                <option>Mastercard</option>
+                <option>UnionPay</option>
+            </select>
+        </div>
+        <div class="field"><label>Transaction ID</label><input class="input" asp-for="TransactionId" /></div>
+
+        <div class="field">
+            <label>Status</label>
+            <select class="input" asp-for="PaymentStatus">
+                <option>Pending</option>
+                <option>Completed</option>
+                <option>Failed</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+        <a asp-action="Index" class="btn btn-outline btn-sm">Cancel</a>
+    </form>
+</div>

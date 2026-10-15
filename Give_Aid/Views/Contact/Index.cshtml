@@ -1,0 +1,76 @@
+﻿@model Give_Aid.Models.ContactFormViewModel
+
+@{
+    ViewData["Title"] = "Contact Us";
+    Layout = "_clientlayout";
+}
+
+<section class="section container">
+    <div class="text-center" style="margin-bottom:28px;">
+        <span class="eyebrow" style="justify-content:center;">Reach us</span>
+        <h1>Contact Us</h1>
+        <p style="max-width:52ch;margin:0 auto;">Questions, partnership proposals, or media inquiries — we'd love to hear from you.</p>
+    </div>
+
+    @if (TempData["Message"] != null)
+    {
+        <div class="alert alert-success" style="margin-bottom:20px;">@TempData["Message"]</div>
+    }
+
+    <div class="grid" style="grid-template-columns:0.85fr 1.15fr;align-items:start;">
+        <div>
+            <div class="card" style="margin-bottom:16px;">
+                <div class="flex gap-3" style="margin-bottom:16px;"><i class="fa-solid fa-location-dot" style="color:var(--banyan-700);width:20px;"></i><div><strong>Address</strong><p style="margin:2px 0 0;font-size:14px;">Ste 202-203 2nd Floor, Progressive Center, Main Shahra-e-Faisal, near Lal Kothi (house), Block 6 P.E.C.H.S., Karachi, 75400, Pakistan</p></div></div>
+                <div class="flex gap-3" style="margin-bottom:16px;"><i class="fa-solid fa-phone" style="color:var(--banyan-700);width:20px;"></i><div><strong>Phone</strong><p style="margin:2px 0 0;font-size:14px;">+92 2134385418</p></div></div>
+                <div class="flex gap-3" style="margin-bottom:16px;"><i class="fa-solid fa-envelope" style="color:var(--banyan-700);width:20px;"></i><div><strong>Email</strong><p style="margin:2px 0 0;font-size:14px;">hello@giveaid.org</p></div></div>
+                <div class="flex gap-3"><i class="fa-solid fa-clock" style="color:var(--banyan-700);width:20px;"></i><div><strong>Working Hours</strong><p style="margin:2px 0 0;font-size:14px;">Mon–Sat, 9:00 AM – 6:00 PM PKT</p></div></div>
+            </div>
+            <div class="card" style="padding:0;overflow:hidden;">
+                <div style="aspect-ratio:4/3;background:var(--banyan-100);display:flex;align-items:center;justify-content:center;color:var(--banyan-600);flex-direction:column;gap:8px;">
+                    @* <i class="fa-solid fa-map-location-dot" style="font-size:28px;"></i> *@
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2752.724902480443!2d67.07171160957547!3d24.863105377835435!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33ea3db108f41%3A0x42acc4507358b160!2sAptech%20Learning%2C%20Shahrah%20e%20Faisal%20Center!5e1!3m2!1sen!2s!4v1789801423524!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-bottom:18px;">Send us a message</h3>
+            <form asp-action="Index" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Full Name<span class="req">*</span></label>
+                        <input class="input" asp-for="FullName" placeholder="Your name" />
+                        <span asp-validation-for="FullName" class="error-msg"></span>
+                    </div>
+                    <div class="field">
+                        <label>Email<span class="req">*</span></label>
+                        <input class="input" asp-for="Email" placeholder="you@example.com" />
+                        <span asp-validation-for="Email" class="error-msg"></span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Subject<span class="req">*</span></label>
+                    <input class="input" asp-for="Subject" placeholder="What's this about?" />
+                    <span asp-validation-for="Subject" class="error-msg"></span>
+                </div>
+
+                <div class="field">
+                    <label>Message<span class="req">*</span></label>
+                    <textarea class="input" asp-for="Message" rows="5" placeholder="Write your message…"></textarea>
+                    <span asp-validation-for="Message" class="error-msg"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

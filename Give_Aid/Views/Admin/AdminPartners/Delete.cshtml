@@ -1,0 +1,29 @@
+@model Give_Aid.Models.Partners
+
+@{
+    ViewData["Title"] = "Delete Partner";
+    Layout = "_adminlayout";
+}
+
+<div class="page-head">
+    <div>
+        <h1>Delete this partner?</h1>
+        <p class="text-muted" style="margin:0;">This will remove them from the public Partners page.</p>
+    </div>
+</div>
+
+<div class="card" style="border-color:var(--danger,#dc2626);">
+    <dl class="row">
+        <dt class="col-sm-3">Partner</dt>
+        <dd class="col-sm-9">@Model.OrganizationName</dd>
+
+        <dt class="col-sm-3">Type</dt>
+        <dd class="col-sm-9">@Model.OrganizationType</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Confirm Delete</button>
+        <a asp-action="Index" class="btn btn-outline">Cancel</a>
+    </form>
+</div>

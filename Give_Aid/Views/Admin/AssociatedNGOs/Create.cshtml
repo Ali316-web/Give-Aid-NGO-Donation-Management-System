@@ -1,0 +1,43 @@
+@model Give_Aid.Models.AssociatedNGOs
+
+@{
+    ViewData["Title"] = "Add NGO";
+    Layout = "_adminlayout";
+}
+
+<div class="page-head">
+    <div><h1>Add Associated NGO</h1></div>
+</div>
+
+<div class="card">
+    <form asp-action="Create" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-grid">
+            <div class="field"><label>NGO Name<span class="req">*</span></label><input class="input" asp-for="NGOName" /></div>
+            <div class="field"><label>Email</label><input class="input" asp-for="Email" /></div>
+        </div>
+        <div class="form-grid">
+            <div class="field"><label>Phone</label><input class="input" asp-for="Phone" /></div>
+            <div class="field"><label>Website</label><input class="input" asp-for="Website" placeholder="https://" /></div>
+        </div>
+
+        <div class="field"><label>Location<span class="req">*</span></label><input class="input" asp-for="Location" placeholder="e.g. Karachi" /></div>
+        <div class="field"><label>Address</label><input class="input" asp-for="Address" placeholder="Street, city" /></div>
+        <div class="field"><label>Focus Area<span class="req">*</span></label><input class="input" asp-for="FocusArea" placeholder="e.g. Healthcare & emergency relief" /></div>
+        <div class="field"><label>Description</label><textarea class="input" asp-for="Description" rows="3"></textarea></div>
+        <div class="field"><label>Logo URL</label><input class="input" asp-for="LogoUrl" placeholder="https://…" /></div>
+
+        <div class="field">
+            <label>Status</label>
+            <select class="input" asp-for="Status">
+                <option>Active</option>
+                <option>Pending</option>
+                <option>Inactive</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-sm">Save NGO</button>
+        <a asp-action="AdminIndex" class="btn btn-outline btn-sm">Cancel</a>
+    </form>
+</div>

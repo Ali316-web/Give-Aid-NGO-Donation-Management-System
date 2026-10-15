@@ -1,0 +1,162 @@
+﻿@model Give_Aid.Models.AboutPageViewModel
+
+@{
+    ViewData["Title"] = "About Us Content";
+    Layout = "_adminlayout";
+}
+
+<div class="breadcrumb" style="margin-bottom:14px;">
+    <a asp-controller="Home" asp-action="Admin">Admin</a><span class="sep">/</span><span class="current">About Us</span>
+</div>
+
+<div class="page-head">
+    <div>
+        <h1>About Us Content Management</h1>
+        <p class="text-muted" style="margin:0;max-width:56ch;">Edit the content shown on the public About Us page.</p>
+    </div>
+</div>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success" style="margin-bottom:16px;">@TempData["Message"]</div>
+}
+
+<div class="gallery-filters" style="margin-bottom:20px;">
+    @foreach (var sec in Model.Sections)
+    {
+        <a href="#sec-@sec.Id" class="chip">@sec.Title</a>
+    }
+    <a href="#sec-team" class="chip">Team</a>
+</div>
+
+@foreach (var sec in Model.Sections)
+{
+    <div class="card" style="margin-bottom:20px;" id="sec-@sec.Id">
+        <form asp-action="SaveSection" method="post" onsubmit="syncEditor(@sec.Id)">
+            <input type="hidden" name="id" value="@sec.Id" />
+            <input type="hidden" name="content" id="content-@sec.Id" />
+
+            <div class="chart-head">
+                <h3>@sec.Title</h3>
+                <span class="badge @(sec.IsVisible ? "badge-success" : "badge-secondary")">
+                    @(sec.IsVisible ? "Published" : "Hidden")
+                </span>
+            </div>
+
+            <div class="field">
+                <label>Title</label>
+                <input class="input" name="title" value="@sec.Title" />
+            </div>
+
+            <div class="field">
+                <label>Content</label>
+                <div class="editor-toolbar">
+                    <button type="button" onclick="document.execCommand('bold')"><i class="fa-solid fa-bold"></i></button>
+                    <button type="button" onclick="document.execCommand('italic')"><i class="fa-solid fa-italic"></i></button>
+                    <button type="button" onclick="document.execCommand('insertUnorderedList')"><i class="fa-solid fa-list-ul"></i></button>
+                    <button type="button" onclick="document.execCommand('insertOrderedList')"><i class="fa-solid fa-list-ol"></i></button>
+                    <button type="button" onclick="wrapLink()"><i class="fa-solid fa-link"></i></button>
+                    <button type="button" onclick="wrapImage()"><i class="fa-solid fa-image"></i></button>
+                </div>
+                <div class="editor-body" contenteditable="true" id="editor-@sec.Id">@Html.Raw(sec.Content)</div>
+            </div>
+
+            <div class="flex justify-between items-center" style="margin-top:14px;">
+                <label class="checkbox-row">
+                    <input type="checkbox" name="isVisible" value="true" checked="@sec.IsVisible" /> Visible on public site
+                </label>
+                <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+            </div>
+        </form>
+    </div>
+}
+
+<div class="card" id="sec-team">
+    <div class="chart-head">
+        <h3>Our Team</h3>
+        <button type="button" class="btn btn-outline btn-sm" onclick="toggleAddMemberForm()">
+            <i class="fa-solid fa-plus"></i> Add Member
+        </button>
+    </div>
+
+    <form asp-action="AddTeamMember" method="post" id="add-member-form" style="display:none;margin-bottom:16px;">
+        <div class="grid" style="grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:end;">
+            <div class="field"><label>Name</label><input class="input" name="name" required /></div>
+            <div class="field"><label>Role</label><input class="input" name="role" required /></div>
+            <div class="field"><label>Photo URL</label><input class="input" name="photoUrl" placeholder="https://…" /></div>
+            <button type="submit" class="btn btn-primary btn-sm">Add</button>
+        </div>
+    </form>
+
+    <div class="table-wrap" style="border:none;">
+        <table class="data-table">
+            <thead><tr><th>Photo</th><th>Name</th><th>Role</th><th>Actions</th></tr></thead>
+            <tbody>
+                @foreach (var member in Model.TeamMembers)
+                {
+                    <tr>
+                        <td><img src="@member.PhotoUrl" style="border-radius:50%;width:32px;height:32px;object-fit:cover;" /></td>
+                        <td>@member.Name</td>
+                        <td>@member.Role</td>
+                        <td class="row-actions">
+                            <button type="button" class="icon-btn" onclick="editMember(@member.Id, '@member.Name', '@member.Role')">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <form asp-action="DeleteTeamMember" method="post" style="display:inline;" onsubmit="return confirm('Delete this team member?');">
+                                <input type="hidden" name="id" value="@member.Id" />
+                                <button type="submit" class="icon-btn danger"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Copies each contenteditable div's HTML into its hidden input right before the form posts.
+        function syncEditor(id) {
+            document.getElementById('content-' + id).value = document.getElementById('editor-' + id).innerHTML;
+        }
+
+        function wrapLink() {
+            var url = prompt('Link URL:');
+            if (url) document.execCommand('createLink', false, url);
+        }
+
+        function wrapImage() {
+            var url = prompt('Image URL:');
+            if (url) document.execCommand('insertImage', false, url);
+        }
+
+        function toggleAddMemberForm() {
+            var form = document.getElementById('add-member-form');
+            form.style.display = form.style.display === 'none' ? 'grid' : 'none';
+        }
+
+        // Builds a tiny form on the fly to post an edit, reusing the antiforgery
+        // token already present on the page (from the asp-action forms above).
+        function editMember(id, name, role) {
+            var newName = prompt('Name:', name);
+            if (newName === null) return;
+            var newRole = prompt('Role:', role);
+            if (newRole === null) return;
+
+            var token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+
+            var form = document.createElement('form');
+            form.method = 'post';
+            form.action = '@Url.Action("EditTeamMember", "AdminAbout")';
+            form.innerHTML =
+                '<input type="hidden" name="id" value="' + id + '">' +
+                '<input type="hidden" name="name" value="' + newName.replace(/"/g, '&quot;') + '">' +
+                '<input type="hidden" name="role" value="' + newRole.replace(/"/g, '&quot;') + '">' +
+                '<input type="hidden" name="__RequestVerificationToken" value="' + token + '">';
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    </script>
+}

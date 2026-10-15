@@ -1,0 +1,96 @@
+﻿@model Give_Aid.Models.DonationFormViewModel
+
+@{
+    ViewData["Title"] = "Donate";
+    Layout = "_clientlayout";
+}
+
+<section class="section container" style="max-width:1080px;">
+    <div class="text-center" style="margin-bottom:32px;">
+        <span class="eyebrow" style="justify-content:center;">Give today</span>
+        <h1>Make a Donation</h1>
+        <p style="max-width:52ch;margin:0 auto;">100% secure. Choose an amount, pick the cause you care about, and complete payment below.</p>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1.1fr 0.9fr;align-items:start;">
+        <div class="card">
+            <form asp-action="Index" method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+                <h3>1. Choose an amount</h3>
+                <div class="field" style="margin-bottom:14px;">
+                    <label for="Amount">Amount (PKR)</label>
+                    <input class="input" asp-for="Amount" type="number" min="100" />
+                    <span asp-validation-for="Amount" class="error-msg"></span>
+                </div>
+
+                <h3 style="margin-top:24px;">2. Select a cause</h3>
+                <div class="field">
+                    <select class="input" asp-for="CauseId">
+                        <option value="">Select a cause</option>
+                        @foreach (var cause in Model.Causes)
+                        {
+                            <option value="@cause.Id">@cause.Cause</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CauseId" class="error-msg"></span>
+                </div>
+
+                <h3 style="margin-top:28px;">3. Payment details</h3>
+
+                <div class="field">
+                    <label>Card Holder Name<span class="req">*</span></label>
+                    <input class="input" asp-for="CardHolderName" placeholder="Name as shown on card" />
+                    <span asp-validation-for="CardHolderName" class="error-msg"></span>
+                </div>
+
+                <div class="field">
+                    <label>Card Number<span class="req">*</span></label>
+                    <input class="input" asp-for="CardNumber" inputmode="numeric" placeholder="0000 0000 0000 0000" />
+                    <span asp-validation-for="CardNumber" class="error-msg"></span>
+                </div>
+
+                <div class="form-grid">
+                    <div class="field">
+                        <label>Expiry Date<span class="req">*</span></label>
+                        <input class="input" asp-for="CardExpiry" placeholder="MM / YY" />
+                        <span asp-validation-for="CardExpiry" class="error-msg"></span>
+                    </div>
+                    <div class="field">
+                        <label>CVV<span class="req">*</span></label>
+                        <input class="input" asp-for="CVV" maxlength="3" placeholder="•••" />
+                        <span asp-validation-for="CVV" class="error-msg"></span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Card Type<span class="req">*</span></label>
+                    <select class="input" asp-for="CardType">
+                        <option value="">Select card type</option>
+                        <option>Visa</option>
+                        <option>Mastercard</option>
+                        <option>UnionPay</option>
+                    </select>
+                    <span asp-validation-for="CardType" class="error-msg"></span>
+                </div>
+
+                <div class="alert alert-info"><i class="fa-solid fa-shield-halved"></i> This is a demo payment form — no real transaction is processed.</div>
+
+                <button type="submit" class="btn btn-accent btn-block"><i class="fa-solid fa-lock"></i> Donate Securely</button>
+            </form>
+        </div>
+
+        <div>
+            <div class="card">
+                <h3 style="font-size:15px;margin-bottom:14px;">Donation Summary</h3>
+                <p class="text-muted" style="font-size:13px;">Your amount and chosen cause will be confirmed on the next page after payment.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

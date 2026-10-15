@@ -1,0 +1,69 @@
+@model IEnumerable<Give_Aid.Models.DonationCause>
+@{
+    ViewData["Title"] = "Donation Causes";
+    Layout = "_adminlayout";
+}
+
+<div class="breadcrumb" style="margin-bottom:14px;">
+    <a asp-controller="Home" asp-action="Admin">Admin</a><span class="sep">/</span>
+    <a asp-controller="Donations" asp-action="Index">Donations</a><span class="sep">/</span>
+    <span class="current">Causes</span>
+</div>
+
+<div class="page-head">
+    <div>
+        <h1>Donation Cause Management</h1>
+        <p class="text-muted" style="margin:0;max-width:56ch;">Add, edit or retire donation causes shown on the public site.</p>
+    </div>
+    <div class="flex gap-2">
+        <a asp-action="Create" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Add Cause</a>
+    </div>
+</div>
+
+<div class="card">
+    <div class="table-wrap">
+        <table class="data-table">
+            <thead>
+                <tr><th>Cause</th><th>Raised</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @if (!string.IsNullOrWhiteSpace(item.Icon))
+                            {
+                                <i class="@item.Icon" style="color:var(--banyan-700);width:20px;"></i>
+                            }
+                            @item.Cause
+                        </td>
+                        <td>Rs @item.Raised.ToString("N0") raised</td>
+                        <td>
+                            @if (item.Status == "Active")
+                            {
+                                <span class="badge badge-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-neutral">Inactive</span>
+                            }
+                        </td>
+                        <td class="row-actions">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="icon-btn" title="Edit"><i class="fa-solid fa-pen"></i></a>
+                            <form asp-action="ToggleStatus" asp-route-id="@item.Id" method="post" style="display:inline;">
+                                <button type="submit" class="icon-btn" title="@(item.Status == "Active" ? "Deactivate" : "Activate")">
+                                    <i class="fa-solid fa-power-off"></i>
+                                </button>
+                            </form>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="icon-btn danger" title="Delete"><i class="fa-solid fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr><td colspan="4" class="text-muted text-center">No donation causes yet.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

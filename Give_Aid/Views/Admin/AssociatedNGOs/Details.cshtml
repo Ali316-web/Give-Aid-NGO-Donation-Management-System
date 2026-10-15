@@ -1,0 +1,48 @@
+@model Give_Aid.Models.AssociatedNGOs
+
+@{
+    ViewData["Title"] = Model.NGOName;
+    Layout = "_clientlayout";
+}
+
+<section class="section container" style="max-width:720px;">
+    <div class="card" style="padding:0;overflow:hidden;">
+        @if (!string.IsNullOrWhiteSpace(Model.LogoUrl))
+        {
+            <img src="@Model.LogoUrl" style="width:100%;aspect-ratio:16/9;object-fit:cover;" alt="@Model.NGOName" />
+        }
+        <div style="padding:28px;">
+            <h1 style="font-size:24px;margin-bottom:4px;">@Model.NGOName</h1>
+            <p style="font-size:14px;color:var(--ink-500);margin-bottom:16px;">
+                <i class="fa-solid fa-location-dot"></i> @Model.Location &nbsp;·&nbsp; @Model.FocusArea
+            </p>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Description))
+            {
+                <p>@Model.Description</p>
+            }
+
+            <div class="detail-list" style="margin-top:20px;">
+                @if (!string.IsNullOrWhiteSpace(Model.Address))
+                {
+                    <div class="detail-row"><span class="k">Address</span><span class="v">@Model.Address</span></div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.Phone))
+                {
+                    <div class="detail-row"><span class="k">Phone</span><span class="v">@Model.Phone</span></div>
+                }
+                @if (!string.IsNullOrWhiteSpace(Model.Email))
+                {
+                    <div class="detail-row"><span class="k">Email</span><span class="v">@Model.Email</span></div>
+                }
+            </div>
+
+            @if (!string.IsNullOrWhiteSpace(Model.Website))
+            {
+                <a href="@Model.Website" target="_blank" rel="noopener" class="btn btn-outline btn-sm" style="margin-top:16px;">
+                    Visit website <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+            }
+        </div>
+    </div>
+</section>
